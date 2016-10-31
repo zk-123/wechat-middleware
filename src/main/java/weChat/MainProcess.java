@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.PrintWriter;
 import java.util.*;
 
 /**
@@ -57,8 +58,8 @@ public class MainProcess {
 
 
     @RequestMapping(value = "/weChatOn",produces ="text/html;charset=utf-8",method = RequestMethod.POST)
-    @ResponseBody
-    public String operator( HttpServletRequest request, HttpServletResponse response)
+
+    public void operator(PrintWriter out, HttpServletRequest request, HttpServletResponse response)
     {
         map = utilService.xmlToMap(request);
 
@@ -81,6 +82,7 @@ public class MainProcess {
             textMessage.setContent("我已经收到你发来的消息了");
             responseMessage = utilService.ObjToXml(textMessage);
         }
-       return responseMessage;
+        response.setCharacterEncoding("utf-8");
+        out.print(responseMessage);
     }
 }
