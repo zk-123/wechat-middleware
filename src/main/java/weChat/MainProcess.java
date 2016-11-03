@@ -57,9 +57,9 @@ public class MainProcess {
     }
 
 
-    @RequestMapping(value = "/weChatOn",produces ="text/html;charset=utf-8",method = RequestMethod.POST)
-
-    public void operator(PrintWriter out, HttpServletRequest request, HttpServletResponse response)
+    @RequestMapping(value = "/weChatOn",produces ="text/plain;charset=utf-8",method = RequestMethod.POST)
+    @ResponseBody
+    public String operator(HttpServletRequest request, HttpServletResponse response)
     {
         map = utilService.xmlToMap(request);
 
@@ -82,7 +82,7 @@ public class MainProcess {
             textMessage.setContent("我已经收到你发来的消息了");
             responseMessage = utilService.ObjToXml(textMessage);
         }
-        response.setCharacterEncoding("utf-8");
-        out.print(responseMessage);
+        System.out.println(responseMessage);
+        return responseMessage;
     }
 }
