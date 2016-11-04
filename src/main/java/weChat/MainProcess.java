@@ -1,6 +1,8 @@
 package weChat;
 
+import Entity.BaseMessage;
 import Entity.TextMessage;
+import Service.MainOperatorService;
 import Service.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,15 @@ public class MainProcess {
 
     @Autowired
     UtilService utilService;
+
+    /**
+     * 主服务
+     * */
+    @Autowired
+    MainOperatorService mainOperatorService;
+
+
+    String responseMessage ;
 
     Map<String,String> map ;
 
@@ -61,25 +72,25 @@ public class MainProcess {
     @ResponseBody
     public String operator(HttpServletRequest request, HttpServletResponse response)
     {
+        /**
+         * request对象封装成map
+        * */
         map = utilService.xmlToMap(request);
 
-        // 发送方帐号（一个OpenID）
-        String fromUserName = map.get("FromUserName");
-        // 开发者微信号
-        String toUserName = map.get("ToUserName");
-        // 消息类型
-        String msgType = map.get("MsgType");
-        // 默认回复一个"success"
-        String responseMessage = "success";
+        /**
+         * map封装成基本的回复消息类
+         * */
+        BaseMessage baseMessage =  mainOperatorService.mapToBase(map);
 
-        if(weChatConstant.MESSAGE_TEXT.equals(msgType))
+
+
+        if(weChatConstant.MESSAGE_TEXT.equals(baseMessage.getMsgType()))
         {
-            TextMessage textMessage = new TextMessage();
-            textMessage.setMsgType(weChatConstant.MESSAGE_TEXT);
-            textMessage.setToUserName(fromUserName);
-            textMessage.setFromUserName(toUserName);
-            textMessage.setCreateTime(System.currentTimeMillis());
-            textMessage.setContent("我已经收到你发来的消息了");
+            /**
+             * 是文本类的先转化成文本消息类
+             * */
+            TextMessage textMessage = mainOperatorService.baseToText(baseMessage);
+            textMessage.setContent("收到");
             responseMessage = utilService.ObjToXml(textMessage);
         }
         System.out.println(responseMessage);
