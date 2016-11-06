@@ -1,6 +1,7 @@
 package Service;
 
 import Entity.BaseMessage;
+import Entity.NewsMessage;
 import Entity.TextMessage;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,12 @@ public class MainOperatorService {
 
     public TextMessage baseToText(BaseMessage baseMessage)
     {
-        TextMessage textMessage = new TextMessage(baseMessage);
-        return textMessage;
+        return new TextMessage(baseMessage);
     }
-
+    public NewsMessage baseToNews(BaseMessage baseMessage)
+    {
+        return new NewsMessage(baseMessage);
+    }
     public BaseMessage mapToBase(Map<String,String> map)
     {
         BaseMessage baseMessage = new BaseMessage();
@@ -25,6 +28,13 @@ public class MainOperatorService {
         baseMessage.setToUserName(map.get("FromUserName"));
         baseMessage.setMsgType(map.get("MsgType"));
         baseMessage.setCreateTime(System.currentTimeMillis());
+
+        if(map.containsKey("Event")) baseMessage.setEvent(map.get("Event"));
+        else baseMessage.setEvent("");
+
+        if(map.containsKey("EventKey")) baseMessage.setEventKey(map.get("EventKey"));
+        else baseMessage.setEventKey("");
+
         return baseMessage;
     }
 }

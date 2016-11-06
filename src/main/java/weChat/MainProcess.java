@@ -1,6 +1,7 @@
 package weChat;
 
 import Entity.BaseMessage;
+import Entity.NewsMessage;
 import Entity.TextMessage;
 import Service.MainOperatorService;
 import Service.UtilService;
@@ -92,8 +93,36 @@ public class MainProcess {
             TextMessage textMessage = mainOperatorService.baseToText(baseMessage);
             textMessage.setContent("收到");
             responseMessage = utilService.ObjToXml(textMessage);
+            System.out.println(responseMessage);
+            return responseMessage;
         }
-        System.out.println(responseMessage);
-        return responseMessage;
+        else if(weChatConstant.MESSAGE_EVENT.equals(baseMessage.getMsgType()))
+        {
+            /**
+             * 事件类消息
+             * */
+            NewsMessage newsMessage = mainOperatorService.baseToNews(baseMessage);
+
+            newsMessage.setArticleCount(4);
+
+            for(int i = 0;i< newsMessage.getArticleCount();i++)
+            {
+                /**
+                 * 依次添加 文章的题目，描述，展示图片的URL,点击的链接
+                 * */
+                newsMessage.addArticle("题目一","描述题目一","https://ss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/image/h%3D200/sign=af9259bf03082838770ddb148898a964/6159252dd42a2834bc76c4ab5fb5c9ea14cebfba.jpg","http://mp.weixin.qq.com/s?__biz=MzI5MTUwMjE5OQ==&mid=2247483658&idx=2&sn=ed9dd671a26e97bba5af91411bcd4da5&chksm=ec0ee012db7969048129fd96a7c9b1b8e451e5f4e5a40b0f9cd1e14d7b526f65781f91970469&scene=0#wechat_redirect");
+            }
+
+            responseMessage = utilService.ObjToXml(newsMessage);
+            System.out.println(responseMessage);
+            return responseMessage;
+
+        }
+        else
+        {
+            return "success";
+        }
+
+
     }
 }

@@ -22,6 +22,14 @@ public class BaseMessage {
     private String MsgType;
 
 
+    /**
+     *考虑到还有事件消息，增加Event 和 EventKey 两个属性
+     */
+    private String Event;
+
+    private String EventKey;
+
+
     public String getToUserName() {
         return ToUserName;
     }
@@ -54,5 +62,19 @@ public class BaseMessage {
         MsgType = msgType;
     }
 
+    public String getEvent() {
+        return Event;
+    }
 
+    public void setEvent(String event) {
+        Event = event;
+    }
+
+    public String getEventKey() {
+        return EventKey;
+    }
+
+    public void setEventKey(String eventKey) {
+        EventKey = eventKey;
+    }
 }

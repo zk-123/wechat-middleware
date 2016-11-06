@@ -1,5 +1,6 @@
 package Service;
 
+import Entity.NewsArticle;
 import com.thoughtworks.xstream.XStream;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -55,6 +56,7 @@ public class UtilService {
     {
         XStream xStream = new XStream();
         xStream.alias("xml",object.getClass());
+        xStream.alias("item", NewsArticle.class);
         return xStream.toXML(object);
     }
 }
