@@ -37,7 +37,6 @@ public class UtilService {
             for(Element e: list)
             {
                 map.put(e.getName(),e.getText());
-                System.out.println(e.getName()+","+e.getText());
             }
             inputStream.close();
 
