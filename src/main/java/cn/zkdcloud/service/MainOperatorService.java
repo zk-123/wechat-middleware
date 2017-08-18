@@ -1,8 +1,8 @@
-package Service;
+package cn.zkdcloud.service;
 
-import Entity.BaseMessage;
-import Entity.NewsMessage;
-import Entity.TextMessage;
+import cn.zkdcloud.dto.BaseMessage;
+import cn.zkdcloud.dto.NewsMessage;
+import cn.zkdcloud.dto.TextMessage;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

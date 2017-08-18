@@ -1,6 +1,6 @@
-package Entity;
+package cn.zkdcloud.dto;
 
-import weChat.weChatConstant;
+import cn.zkdcloud.util.Const;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class NewsMessage extends BaseMessage{
         this.setToUserName(baseMessage.getToUserName());
         this.setFromUserName(baseMessage.getFromUserName());
         this.setCreateTime(baseMessage.getCreateTime());
-        this.setMsgType(weChatConstant.MSGType_NEWS);
+        this.setMsgType(Const.MSGType_NEWS);
     }
 
     public int getArticleCount() {
@@ -40,8 +40,7 @@ public class NewsMessage extends BaseMessage{
         Articles = articles;
     }
 
-    public void addArticle(String Title,String Description,String PicUrl,String Url)
-    {
+    public void addArticle(String Title,String Description,String PicUrl,String Url) {
         NewsArticle newsArticle = new NewsArticle(Title,Description,PicUrl,Url);
 
         if(Articles == null)  Articles  = new ArrayList<NewsArticle>();

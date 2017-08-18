@@ -1,4 +1,4 @@
-package Entity;
+package cn.zkdcloud.dto;
 
 /**
  * Created by zk on 2016/10/30.

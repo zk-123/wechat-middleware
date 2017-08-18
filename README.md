@@ -1,2 +1,2 @@
-# weChat
+# cn.zkdcloud.weChat
 weChatTest
