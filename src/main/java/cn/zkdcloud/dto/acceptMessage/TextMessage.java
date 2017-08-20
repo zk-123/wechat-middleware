@@ -1,17 +1,22 @@
-package cn.zkdcloud.dto;
+package cn.zkdcloud.dto.acceptMessage;
+
+import cn.zkdcloud.dto.AcceptMessage;
+import cn.zkdcloud.dto.Message;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
  * Created by zk on 2016/10/30.
  */
-public class TextMessage extends BaseMessage{
+@XStreamAlias("xml")
+public class TextMessage extends AcceptMessage {
 
     /**
      * 文本消息内容
      */
+    @XStreamAlias("Content")
+    private String content;
 
-    private String Content;
-
-    public TextMessage(BaseMessage baseMessage){
+    public TextMessage(Message baseMessage){
         this.setToUserName(baseMessage.getToUserName());
         this.setFromUserName(baseMessage.getFromUserName());
         this.setCreateTime(baseMessage.getCreateTime());
@@ -23,13 +28,10 @@ public class TextMessage extends BaseMessage{
     }
 
     public String getContent() {
-        return Content;
+        return content;
     }
 
     public void setContent(String content) {
-        Content = content;
+        this.content = content;
     }
-
-
-
 }

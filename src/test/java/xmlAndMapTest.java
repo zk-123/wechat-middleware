@@ -1,4 +1,5 @@
-import com.thoughtworks.xstream.XStream;
+import cn.zkdcloud.dto.acceptMessage.TextMessage;
+import cn.zkdcloud.util.StreamUtil;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -47,8 +48,8 @@ public class xmlAndMapTest {
     }
 
     @Test
-    public void Xstream()
-    {
-
+    public void Xstream() {
+        TextMessage textMessage = new TextMessage();
+        System.out.println(StreamUtil.ObjToXml(textMessage));
     }
 }

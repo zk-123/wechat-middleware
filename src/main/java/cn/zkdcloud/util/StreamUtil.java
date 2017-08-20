@@ -2,6 +2,7 @@ package cn.zkdcloud.util;
 
 import cn.zkdcloud.dto.NewsArticle;
 import com.thoughtworks.xstream.XStream;
+import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -17,6 +18,15 @@ import java.util.Map;
  * 关于输入/输出/流的操作
  */
 public class StreamUtil {
+
+    private static Logger logger = Logger.getLogger(StreamUtil.class);
+
+    private static XStream xStream;
+
+    static {
+        xStream = new XStream();
+        xStream.autodetectAnnotations(true);
+    }
 
     /**
      * request输入流中xml to map
@@ -59,9 +69,6 @@ public class StreamUtil {
      * @return
      */
     public static String ObjToXml(Object object) {
-        XStream xStream = new XStream();
-        xStream.alias("xml", object.getClass());
-        xStream.alias("item", NewsArticle.class);
         return xStream.toXML(object);
     }
 

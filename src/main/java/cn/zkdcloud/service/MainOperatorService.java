@@ -1,8 +1,8 @@
 package cn.zkdcloud.service;
 
-import cn.zkdcloud.dto.BaseMessage;
+import cn.zkdcloud.dto.Message;
 import cn.zkdcloud.dto.NewsMessage;
-import cn.zkdcloud.dto.TextMessage;
+import cn.zkdcloud.dto.acceptMessage.TextMessage;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -13,17 +13,17 @@ import java.util.Map;
 @Service("mainOperatorService")
 public class MainOperatorService {
 
-    public TextMessage baseToText(BaseMessage baseMessage)
+    public TextMessage baseToText(Message baseMessage)
     {
         return new TextMessage(baseMessage);
     }
-    public NewsMessage baseToNews(BaseMessage baseMessage)
+    public NewsMessage baseToNews(Message baseMessage)
     {
         return new NewsMessage(baseMessage);
     }
-    public BaseMessage mapToBase(Map<String,String> map)
+    public Message mapToBase(Map<String,String> map)
     {
-        BaseMessage baseMessage = new BaseMessage();
+        Message baseMessage = new Message();
         baseMessage.setFromUserName(map.get("ToUserName"));
         baseMessage.setToUserName(map.get("FromUserName"));
         baseMessage.setMsgType(map.get("MsgType"));

@@ -10,7 +10,7 @@
     <mvc:annotation-driven/>
 
     <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <property name="templateLoaderPath" value="/template/"/>
+        <property name="templateLoaderPath" value="classpath:/template/"/>
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 

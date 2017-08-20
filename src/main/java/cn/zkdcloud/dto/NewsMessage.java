@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by zk on 2016/11/5.
  */
-public class NewsMessage extends BaseMessage{
+public class NewsMessage extends Message {
 
 
     private int ArticleCount;
@@ -17,7 +17,7 @@ public class NewsMessage extends BaseMessage{
     public NewsMessage(){
 
     }
-    public NewsMessage(BaseMessage baseMessage){
+    public NewsMessage(Message baseMessage){
         this.setToUserName(baseMessage.getToUserName());
         this.setFromUserName(baseMessage.getFromUserName());
         this.setCreateTime(baseMessage.getCreateTime());

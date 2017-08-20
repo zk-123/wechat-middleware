@@ -1,8 +1,8 @@
 package cn.zkdcloud.process;
 
-import cn.zkdcloud.dto.BaseMessage;
+import cn.zkdcloud.dto.Message;
 import cn.zkdcloud.dto.NewsMessage;
-import cn.zkdcloud.dto.TextMessage;
+import cn.zkdcloud.dto.acceptMessage.TextMessage;
 import cn.zkdcloud.service.MainOperatorService;
 import cn.zkdcloud.service.UtilService;
 import cn.zkdcloud.util.ConfirmUtil;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
@@ -71,7 +70,7 @@ public class MainProcess {
         /**
          * map封装成基本的回复消息类
          * */
-        BaseMessage baseMessage = mainOperatorService.mapToBase(map);
+        Message baseMessage = mainOperatorService.mapToBase(map);
 
         if (Const.MESSAGE_TEXT.equals(baseMessage.getMsgType())) {
             /**
