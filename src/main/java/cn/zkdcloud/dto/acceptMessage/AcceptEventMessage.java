@@ -1,7 +1,16 @@
 package cn.zkdcloud.dto.acceptMessage;
 
 import cn.zkdcloud.dto.AcceptMessage;
+import cn.zkdcloud.dto.Message;
+import cn.zkdcloud.dto.acceptMessage.eventMessage.ClickEventMessage;
+import cn.zkdcloud.dto.acceptMessage.eventMessage.LocationEventMessage;
+import cn.zkdcloud.dto.acceptMessage.eventMessage.ScanEventMessage;
+import cn.zkdcloud.dto.acceptMessage.eventMessage.ViewEventMessage;
 import cn.zkdcloud.entity.Event;
+
+import java.util.Map;
+
+import static cn.zkdcloud.entity.Event.SUBSCRIBE;
 
 /**
  * 事件消息
@@ -18,5 +27,55 @@ public abstract class AcceptEventMessage extends AcceptMessage {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    /**
+     * 将data根据event类型转成不同的事件
+     *
+     * @param data requestData
+     * @return ret
+     */
+    public static AcceptEventMessage eventResolver(Map<String, String> data) throws Exception {
+        AcceptEventMessage ret;
+
+        switch (Event.valueOf(data.get("Event"))) {
+            case SCAN:
+                ret = fillMessage(data, ScanEventMessage.class);
+                break;
+            case VIEW:
+                ret = fillMessage(data, ViewEventMessage.class);
+                break;
+            case CLICK:
+                ret = fillMessage(data, ClickEventMessage.class);
+                break;
+            case LOCATION:
+                ret = fillMessage(data, LocationEventMessage.class);
+                break;
+            case SUBSCRIBE:
+                ret = fillMessage(data,)
+                break;
+            case UBSUBSCRIBE:
+                break;
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * 根据不同类型，填充message
+     * @param data requestData
+     * @param clazz clazz
+     * @param <T> message
+     * @return ret
+     * @throws Exception e
+     */
+    public  static <T> T fillMessage(Map<String,String> data,Class<T> clazz) throws Exception {
+        T t = clazz.newInstance();
+
+        for(String key : data.keySet()){ //fill message
+            clazz.getMethod("set" + data.get(key)).invoke(t,data.get(key));
+        }
+
+        return t;
     }
 }

@@ -1,6 +1,7 @@
 package cn.zkdcloud.dto.responseMessage;
 
 import cn.zkdcloud.dto.ResponseMessage;
+import cn.zkdcloud.entity.MsgType;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
@@ -15,9 +16,13 @@ public class ResponseNewsMessage extends ResponseMessage{
     @XStreamAlias("ArticleCount")
     private Integer articleCount;
 
-    @XStreamImplicit
     @XStreamAlias("Articles")
-    private List<Artcle> artcles;
+    private Articles articles;
+
+    public ResponseNewsMessage(String toUserName, String fromUserName) {
+        super(toUserName, fromUserName);
+        this.msgType = MsgType.NEWS;
+    }
 
     /**添加article
      *
@@ -27,32 +32,29 @@ public class ResponseNewsMessage extends ResponseMessage{
      * @param url url
      * @return articles
      */
-    public List<Artcle> addArticle(String title,String description,String picUrl,String url){
-        if(artcles == null){
-            artcles = new ArrayList<>();
+    public ResponseNewsMessage addArticle(String title,String description,String picUrl,String url){
+        if(articles == null){
+            articles = new Articles();
         }
-        artcles.add(Artcle.getArticle(title,description,picUrl,url));
-        return artcles;
+        articles.articleList.add(Article.getArticle(title,description,picUrl,url));
+        this.articleCount = articles.articleList.size();
+        return this;
     }
 
-    public Integer getArticleCount() {
-        return articleCount;
+    /**
+     * 集合article
+     */
+    public static class Articles{
+
+        @XStreamImplicit
+        private List<Article> articleList = new ArrayList<>();
     }
 
-    public void setArticleCount(Integer articleCount) {
-        this.articleCount = articleCount;
-    }
-
-    public List<Artcle> getArtcles() {
-        return artcles;
-    }
-
-    public void setArtcles(List<Artcle> artcles) {
-        this.artcles = artcles;
-    }
-
+    /**
+     * 单个article
+     */
     @XStreamAlias("item")
-    static class Artcle{
+    public static class Article{
         /*
         标题
          */
@@ -74,8 +76,8 @@ public class ResponseNewsMessage extends ResponseMessage{
         @XStreamAlias("Url")
         private String url;
 
-        public static Artcle getArticle(String title,String description,String picUrl,String url){
-            Artcle ret = new Artcle();
+        public static Article getArticle(String title,String description,String picUrl,String url){
+            Article ret = new Article();
             ret.title = title;
             ret.description = description;
             ret.picUrl = picUrl;

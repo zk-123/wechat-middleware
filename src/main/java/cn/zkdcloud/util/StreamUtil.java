@@ -1,6 +1,5 @@
 package cn.zkdcloud.util;
 
-import cn.zkdcloud.dto.NewsArticle;
 import com.thoughtworks.xstream.XStream;
 import org.apache.log4j.Logger;
 import org.dom4j.Document;

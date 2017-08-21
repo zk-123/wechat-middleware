@@ -36,9 +36,16 @@ public enum MsgType {
      * 链接类型
      */
     LINK,
-
+    /**
+     * 音乐类型
+     */
+    MUSIC,
     /**
      * 事件类型
      */
-    EVENT
+    EVENT,
+    Video, /**
+     * 图文新闻类型
+     */
+    NEWS
 }

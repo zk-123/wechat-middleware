@@ -1,12 +1,12 @@
 package cn.zkdcloud.process;
 
-import cn.zkdcloud.dto.Message;
-import cn.zkdcloud.dto.NewsMessage;
-import cn.zkdcloud.dto.acceptMessage.normalMessage.AcceptTextMessage;
+import cn.zkdcloud.dto.ResponseMessage;
+import cn.zkdcloud.dto.responseMessage.ResponseMusicMessage;
+import cn.zkdcloud.dto.responseMessage.ResponseNewsMessage;
+import cn.zkdcloud.dto.responseMessage.ResponseTextMessage;
 import cn.zkdcloud.service.MainOperatorService;
 import cn.zkdcloud.service.UtilService;
 import cn.zkdcloud.util.ConfirmUtil;
-import cn.zkdcloud.util.Const;
 import cn.zkdcloud.util.StreamUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,46 +62,15 @@ public class MainProcess {
     @RequestMapping(value = "/weChatOn", produces = "text/plain;charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
     public String operator(HttpServletRequest request) {
-        /**
-         * request对象封装成map
-         * */
-        map = StreamUtil.xmlToMap(request);
+        Map<String,String> map = StreamUtil.xmlToMap(request);
+        ResponseNewsMessage message = new ResponseNewsMessage(map.get("FromUserName"),map.get("ToUserName"));
+        message.addArticle("title1","title1",
+                "https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=2618178600,2784742614&fm=85&s=A23A76874A313A9E7ABE51370300A048",
+                "http://www.baidu.com")
+                .addArticle("title1","title1",
+                        "https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=2618178600,2784742614&fm=85&s=A23A76874A313A9E7ABE51370300A048",
+                        "http://www.baidu.com");
 
-        /**
-         * map封装成基本的回复消息类
-         * */
-        Message baseMessage = mainOperatorService.mapToBase(map);
-
-        if (Const.MESSAGE_TEXT.equals(baseMessage.getMsgType())) {
-            /**
-             * 是文本类的先转化成文本消息类
-             * */
-            AcceptTextMessage textMessage = mainOperatorService.baseToText(baseMessage);
-            textMessage.setContent("收到");
-            responseMessage = StreamUtil.ObjToXml(textMessage);
-            System.out.println(responseMessage);
-            return responseMessage;
-        } else if (Const.MESSAGE_EVENT.equals(baseMessage.getMsgType())) {
-            /**
-             * 事件类消息
-             * */
-            NewsMessage newsMessage = mainOperatorService.baseToNews(baseMessage);
-
-            newsMessage.setArticleCount(4);
-
-            for (int i = 0; i < newsMessage.getArticleCount(); i++) {
-                /**
-                 * 依次添加 文章的题目，描述，展示图片的URL,点击的链接
-                 * */
-                newsMessage.addArticle("题目一", "描述题目一", "https://ss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/image/h%3D200/sign=af9259bf03082838770ddb148898a964/6159252dd42a2834bc76c4ab5fb5c9ea14cebfba.jpg", "http://mp.weixin.qq.com/s?__biz=MzI5MTUwMjE5OQ==&mid=2247483658&idx=2&sn=ed9dd671a26e97bba5af91411bcd4da5&chksm=ec0ee012db7969048129fd96a7c9b1b8e451e5f4e5a40b0f9cd1e14d7b526f65781f91970469&scene=0#wechat_redirect");
-            }
-
-            responseMessage = StreamUtil.ObjToXml(newsMessage);
-            System.out.println(responseMessage);
-            return responseMessage;
-
-        } else {
-            return "success";
-        }
+        return StreamUtil.ObjToXml(message);
     }
 }

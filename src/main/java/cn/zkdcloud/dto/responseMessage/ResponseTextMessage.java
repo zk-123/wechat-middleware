@@ -1,6 +1,7 @@
 package cn.zkdcloud.dto.responseMessage;
 
 import cn.zkdcloud.dto.ResponseMessage;
+import cn.zkdcloud.entity.MsgType;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
@@ -13,6 +14,11 @@ public class ResponseTextMessage extends ResponseMessage{
      */
     @XStreamAlias("Content")
     private String content;
+
+    public ResponseTextMessage(String toUserName, String fromUserName) {
+        super(toUserName, fromUserName);
+        this.msgType = MsgType.TEXT;
+    }
 
     public String getContent() {
         return content;

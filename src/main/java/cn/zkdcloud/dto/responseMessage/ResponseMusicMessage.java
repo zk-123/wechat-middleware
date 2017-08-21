@@ -1,14 +1,20 @@
 package cn.zkdcloud.dto.responseMessage;
 
 import cn.zkdcloud.dto.ResponseMessage;
+import cn.zkdcloud.entity.MsgType;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 @XStreamAlias("xml")
 public class ResponseMusicMessage extends ResponseMessage{
 
-    @XStreamImplicit
+    @XStreamAlias("Music")
     private Music music;
+
+    public ResponseMusicMessage(String toUserName, String fromUserName) {
+        super(toUserName, fromUserName);
+        this.msgType = MsgType.MUSIC;
+    }
 
     public Music getMusic() {
         return music;
@@ -18,8 +24,7 @@ public class ResponseMusicMessage extends ResponseMessage{
         this.music = music;
     }
 
-    @XStreamAlias("Music")
-    static class Music{
+    public static class Music{
         /*
         title
          */
