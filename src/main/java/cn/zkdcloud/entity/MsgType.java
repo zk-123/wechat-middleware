@@ -10,35 +10,35 @@ public enum MsgType {
     /**
      * 文本类型
      */
-    text,
+    TEXT,
 
     /**
      * 图片类型
      */
-    image,
+    IMAGE,
 
     /**
      * 语音类型
      */
-    voice,
+    VOICE,
 
     /**
      * 小视频类型
      */
-    shortvideo,
+    SHORTVIDEO,
 
     /**
      * 地理位置类型
      */
-    location,
+    LOCATION,
 
     /**
      * 链接类型
      */
-    link,
+    LINK,
 
     /**
      * 事件类型
      */
-    event
+    EVENT
 }

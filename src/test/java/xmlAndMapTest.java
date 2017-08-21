@@ -1,4 +1,4 @@
-import cn.zkdcloud.dto.acceptMessage.TextMessage;
+import cn.zkdcloud.dto.acceptMessage.normalMessage.AcceptTextMessage;
 import cn.zkdcloud.util.StreamUtil;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -49,7 +49,7 @@ public class xmlAndMapTest {
 
     @Test
     public void Xstream() {
-        TextMessage textMessage = new TextMessage();
+        AcceptTextMessage textMessage = new AcceptTextMessage();
         System.out.println(StreamUtil.ObjToXml(textMessage));
     }
 }

@@ -2,7 +2,7 @@ package cn.zkdcloud.process;
 
 import cn.zkdcloud.dto.Message;
 import cn.zkdcloud.dto.NewsMessage;
-import cn.zkdcloud.dto.acceptMessage.TextMessage;
+import cn.zkdcloud.dto.acceptMessage.normalMessage.AcceptTextMessage;
 import cn.zkdcloud.service.MainOperatorService;
 import cn.zkdcloud.service.UtilService;
 import cn.zkdcloud.util.ConfirmUtil;
@@ -76,7 +76,7 @@ public class MainProcess {
             /**
              * 是文本类的先转化成文本消息类
              * */
-            TextMessage textMessage = mainOperatorService.baseToText(baseMessage);
+            AcceptTextMessage textMessage = mainOperatorService.baseToText(baseMessage);
             textMessage.setContent("收到");
             responseMessage = StreamUtil.ObjToXml(textMessage);
             System.out.println(responseMessage);
