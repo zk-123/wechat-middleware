@@ -1,5 +1,6 @@
 package cn.zkdcloud.process;
 
+import cn.zkdcloud.dto.AcceptMessage;
 import cn.zkdcloud.dto.ResponseMessage;
 import cn.zkdcloud.dto.responseMessage.ResponseMusicMessage;
 import cn.zkdcloud.dto.responseMessage.ResponseNewsMessage;
@@ -8,6 +9,7 @@ import cn.zkdcloud.service.MainOperatorService;
 import cn.zkdcloud.service.UtilService;
 import cn.zkdcloud.util.ConfirmUtil;
 import cn.zkdcloud.util.StreamUtil;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,8 @@ import java.util.*;
  */
 @Controller
 public class MainProcess {
+
+    private static Logger logger = Logger.getLogger(MainProcess.class);
 
     @Autowired
     UtilService utilService;
@@ -62,15 +66,18 @@ public class MainProcess {
     @RequestMapping(value = "/weChatOn", produces = "text/plain;charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
     public String operator(HttpServletRequest request) {
-        Map<String,String> map = StreamUtil.xmlToMap(request);
-        ResponseNewsMessage message = new ResponseNewsMessage(map.get("FromUserName"),map.get("ToUserName"));
-        message.addArticle("title1","title1",
-                "https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=2618178600,2784742614&fm=85&s=A23A76874A313A9E7ABE51370300A048",
-                "http://www.baidu.com")
-                .addArticle("title1","title1",
-                        "https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=2618178600,2784742614&fm=85&s=A23A76874A313A9E7ABE51370300A048",
-                        "http://www.baidu.com");
+        AcceptMessage acceptMessage ;
 
-        return StreamUtil.ObjToXml(message);
+        try {
+            acceptMessage = AcceptMessage.prepareMessage(request);
+        } catch (Exception e) {
+            logger.error(e.getMessage() + "---初始化消息失败");
+            return "success";
+        }
+
+
+
+
+        return "";
     }
 }

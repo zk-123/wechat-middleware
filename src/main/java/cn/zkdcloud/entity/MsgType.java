@@ -44,7 +44,11 @@ public enum MsgType {
      * 事件类型
      */
     EVENT,
-    Video, /**
+    /**
+     * 语音消息
+     */
+    Video,
+    /**
      * 图文新闻类型
      */
     NEWS

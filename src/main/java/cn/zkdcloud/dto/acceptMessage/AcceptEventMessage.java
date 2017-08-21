@@ -2,12 +2,10 @@ package cn.zkdcloud.dto.acceptMessage;
 
 import cn.zkdcloud.dto.AcceptMessage;
 import cn.zkdcloud.dto.Message;
-import cn.zkdcloud.dto.acceptMessage.eventMessage.ClickEventMessage;
-import cn.zkdcloud.dto.acceptMessage.eventMessage.LocationEventMessage;
-import cn.zkdcloud.dto.acceptMessage.eventMessage.ScanEventMessage;
-import cn.zkdcloud.dto.acceptMessage.eventMessage.ViewEventMessage;
+import cn.zkdcloud.dto.acceptMessage.eventMessage.*;
 import cn.zkdcloud.entity.Event;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 
 import static cn.zkdcloud.entity.Event.SUBSCRIBE;
@@ -38,7 +36,7 @@ public abstract class AcceptEventMessage extends AcceptMessage {
     public static AcceptEventMessage eventResolver(Map<String, String> data) throws Exception {
         AcceptEventMessage ret;
 
-        switch (Event.valueOf(data.get("Event"))) {
+        switch (Event.valueOf(data.get("Event").toUpperCase())) {
             case SCAN:
                 ret = fillMessage(data, ScanEventMessage.class);
                 break;
@@ -52,30 +50,15 @@ public abstract class AcceptEventMessage extends AcceptMessage {
                 ret = fillMessage(data, LocationEventMessage.class);
                 break;
             case SUBSCRIBE:
-                ret = fillMessage(data,)
+                ret = fillMessage(data, SubscribeEventMessage.class);
                 break;
             case UBSUBSCRIBE:
+                ret = fillMessage(data,SubscribeEventMessage.class);
                 break;
             default:
-                return null;
+                ret = null;
         }
+        return ret;
     }
 
-    /**
-     * 根据不同类型，填充message
-     * @param data requestData
-     * @param clazz clazz
-     * @param <T> message
-     * @return ret
-     * @throws Exception e
-     */
-    public  static <T> T fillMessage(Map<String,String> data,Class<T> clazz) throws Exception {
-        T t = clazz.newInstance();
-
-        for(String key : data.keySet()){ //fill message
-            clazz.getMethod("set" + data.get(key)).invoke(t,data.get(key));
-        }
-
-        return t;
-    }
 }
