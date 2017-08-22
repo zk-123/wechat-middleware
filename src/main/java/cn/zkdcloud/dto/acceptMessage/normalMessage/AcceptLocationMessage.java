@@ -9,11 +9,11 @@ public class AcceptLocationMessage extends AcceptNormalMessage {
     /**
      * 维度
      */
-    private String location_x;
+    private String location_X;
     /**
      * 经度
      */
-    private String location_y;
+    private String location_Y;
     /**
      * 地图缩放大小
      */
@@ -23,20 +23,20 @@ public class AcceptLocationMessage extends AcceptNormalMessage {
      */
     private String label;
 
-    public String getLocation_x() {
-        return location_x;
+    public String getLocation_X() {
+        return location_X;
     }
 
-    public void setLocation_x(String location_x) {
-        this.location_x = location_x;
+    public void setLocation_X(String location_X) {
+        this.location_X = location_X;
     }
 
-    public String getLocation_y() {
-        return location_y;
+    public String getLocation_Y() {
+        return location_Y;
     }
 
-    public void setLocation_y(String location_y) {
-        this.location_y = location_y;
+    public void setLocation_Y(String location_Y) {
+        this.location_Y = location_Y;
     }
 
     public Integer getScale() {

@@ -20,6 +20,12 @@ public class ResponseTextMessage extends ResponseMessage {
         this.msgType = MsgType.TEXT;
     }
 
+    public ResponseTextMessage(String content) {
+        super();
+        this.content = content;
+        this.msgType = MsgType.TEXT;
+    }
+
     public ResponseTextMessage(String toUserName, String fromUserName) {
         super(toUserName, fromUserName);
         this.msgType = MsgType.TEXT;
