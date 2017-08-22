@@ -6,8 +6,7 @@ import cn.zkdcloud.dto.ResponseMessage;
 import cn.zkdcloud.dto.responseMessage.ResponseMusicMessage;
 import cn.zkdcloud.dto.responseMessage.ResponseNewsMessage;
 import cn.zkdcloud.dto.responseMessage.ResponseTextMessage;
-import cn.zkdcloud.service.MainOperatorService;
-import cn.zkdcloud.service.UtilService;
+
 import cn.zkdcloud.util.ConfirmUtil;
 import cn.zkdcloud.util.StreamUtil;
 import org.apache.log4j.Logger;
@@ -28,15 +27,6 @@ import java.util.*;
 public class MainProcess {
 
     private static Logger logger = Logger.getLogger(MainProcess.class);
-
-    @Autowired
-    UtilService utilService;
-
-    /**
-     * 主服务
-     */
-    @Autowired
-    MainOperatorService mainOperatorService;
 
 
     String responseMessage;
@@ -71,6 +61,7 @@ public class MainProcess {
 
         try {
             acceptMessage = AcceptMessage.prepareMessage(request);
+            System.out.println(StreamUtil.ObjToXml(acceptMessage));
         } catch (Exception e) {
             logger.error(e.getMessage() + "---初始化消息失败");
             return "success";

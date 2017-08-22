@@ -1,9 +1,8 @@
 package cn.zkdcloud.dto.responseMessage;
 
 import cn.zkdcloud.dto.ResponseMessage;
-import cn.zkdcloud.entity.MsgType;
+import cn.zkdcloud.dto.MsgType;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 /**
  * 返回图片格式Message
@@ -15,7 +14,8 @@ public class ResponseMusicMessage extends ResponseMessage {
     private Music music;
 
     public ResponseMusicMessage() {
-
+        super();
+        this.msgType = MsgType.MUSIC;
     }
 
     public ResponseMusicMessage(String toUserName, String fromUserName) {

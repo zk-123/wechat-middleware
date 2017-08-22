@@ -1,9 +1,8 @@
 package cn.zkdcloud.dto.responseMessage;
 
 import cn.zkdcloud.dto.ResponseMessage;
-import cn.zkdcloud.entity.MsgType;
+import cn.zkdcloud.dto.MsgType;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 @XStreamAlias("xml")
 public class ResponseVideoMessage extends ResponseMessage {
@@ -12,6 +11,11 @@ public class ResponseVideoMessage extends ResponseMessage {
      */
     @XStreamAlias("Video")
     private Video video;
+
+    public ResponseVideoMessage(){
+        super();
+        this.msgType = MsgType.Video;
+    }
 
     public ResponseVideoMessage(String toUserName, String fromUserName) {
         super(toUserName, fromUserName);

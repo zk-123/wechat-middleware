@@ -29,7 +29,7 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-
+        <!--dom4j xml-->
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
@@ -41,7 +41,7 @@
             <artifactId>xstream</artifactId>
             <version>1.4.9</version>
         </dependency>
-
+        <!--jetty server-->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-webapp</artifactId>
@@ -71,6 +71,12 @@
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
             <version>2.3.23</version>
+        </dependency>
+        <!--util-->
+        <dependency>
+            <groupId>cn.zkdcloud</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-RELEASE</version>
         </dependency>
     </dependencies>
 

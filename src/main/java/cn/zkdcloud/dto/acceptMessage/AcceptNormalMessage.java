@@ -2,12 +2,9 @@ package cn.zkdcloud.dto.acceptMessage;
 
 import cn.zkdcloud.dto.AcceptMessage;
 import cn.zkdcloud.dto.acceptMessage.normalMessage.*;
-import cn.zkdcloud.entity.Event;
-import cn.zkdcloud.entity.MsgType;
+import cn.zkdcloud.dto.MsgType;
 
 import java.util.Map;
-
-import static cn.zkdcloud.dto.AcceptMessage.fillMessage;
 
 /**
  * 一般消息

@@ -2,8 +2,7 @@ package cn.zkdcloud.dto;
 
 import cn.zkdcloud.dto.acceptMessage.AcceptEventMessage;
 import cn.zkdcloud.dto.acceptMessage.AcceptNormalMessage;
-import cn.zkdcloud.entity.Event;
-import cn.zkdcloud.entity.MsgType;
+import cn.zkdcloud.dto.acceptMessage.Event;
 import cn.zkdcloud.util.StreamUtil;
 import org.apache.log4j.Logger;
 

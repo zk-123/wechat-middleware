@@ -1,5 +1,6 @@
 package cn.zkdcloud;
 
+import cn.zkdcloud.core.WeChatListener;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
@@ -13,6 +14,7 @@ public class Start {
         context.setDescriptor(webappPath + "WEB-INF/web.xml");
         context.setResourceBase(webappPath);
         context.setContextPath("/");
+        context.addEventListener(new WeChatListener());
 
         server.setHandler(context);
         server.start();

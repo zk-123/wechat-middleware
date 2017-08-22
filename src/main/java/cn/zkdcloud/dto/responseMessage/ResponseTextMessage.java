@@ -1,7 +1,7 @@
 package cn.zkdcloud.dto.responseMessage;
 
 import cn.zkdcloud.dto.ResponseMessage;
-import cn.zkdcloud.entity.MsgType;
+import cn.zkdcloud.dto.MsgType;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
@@ -16,7 +16,8 @@ public class ResponseTextMessage extends ResponseMessage {
     private String content;
 
     public ResponseTextMessage() {
-
+        super();
+        this.msgType = MsgType.TEXT;
     }
 
     public ResponseTextMessage(String toUserName, String fromUserName) {

@@ -1,4 +1,4 @@
-package cn.zkdcloud.entity;
+package cn.zkdcloud.dto.acceptMessage;
 
 /**
  * 事件推送格式

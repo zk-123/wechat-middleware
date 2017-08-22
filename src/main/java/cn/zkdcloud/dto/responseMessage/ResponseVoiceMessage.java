@@ -1,9 +1,9 @@
 package cn.zkdcloud.dto.responseMessage;
 
 import cn.zkdcloud.dto.ResponseMessage;
-import cn.zkdcloud.entity.MsgType;
+import cn.zkdcloud.dto.MsgType;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
+
 @XStreamAlias("xml")
 public class ResponseVoiceMessage extends ResponseMessage{
 
@@ -11,7 +11,8 @@ public class ResponseVoiceMessage extends ResponseMessage{
     private Voice voice;
 
     public ResponseVoiceMessage(){
-
+        super();
+        this.msgType = MsgType.VOICE;
     }
 
     public ResponseVoiceMessage(String toUserName, String fromUserName) {

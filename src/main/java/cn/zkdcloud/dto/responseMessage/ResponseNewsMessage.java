@@ -1,7 +1,7 @@
 package cn.zkdcloud.dto.responseMessage;
 
 import cn.zkdcloud.dto.ResponseMessage;
-import cn.zkdcloud.entity.MsgType;
+import cn.zkdcloud.dto.MsgType;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
@@ -25,7 +25,8 @@ public class ResponseNewsMessage extends ResponseMessage {
     private Articles articles;
 
     public ResponseNewsMessage() {
-
+        super();
+        this.msgType = MsgType.NEWS;
     }
 
     public ResponseNewsMessage(String toUserName, String fromUserName) {

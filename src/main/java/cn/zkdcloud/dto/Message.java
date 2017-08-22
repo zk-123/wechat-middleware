@@ -1,6 +1,5 @@
 package cn.zkdcloud.dto;
 
-import cn.zkdcloud.entity.MsgType;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**

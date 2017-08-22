@@ -1,14 +1,9 @@
 package cn.zkdcloud.dto.acceptMessage;
 
 import cn.zkdcloud.dto.AcceptMessage;
-import cn.zkdcloud.dto.Message;
 import cn.zkdcloud.dto.acceptMessage.eventMessage.*;
-import cn.zkdcloud.entity.Event;
 
-import java.lang.reflect.Method;
 import java.util.Map;
-
-import static cn.zkdcloud.entity.Event.SUBSCRIBE;
 
 /**
  * 事件消息

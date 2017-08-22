@@ -1,9 +1,8 @@
 package cn.zkdcloud.dto.responseMessage;
 
 import cn.zkdcloud.dto.ResponseMessage;
-import cn.zkdcloud.entity.MsgType;
+import cn.zkdcloud.dto.MsgType;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 /**
  * 图片格式回复
@@ -17,7 +16,8 @@ public class ResponseImageMessage extends ResponseMessage {
     private Image image;
 
     public ResponseImageMessage() {
-
+        super();
+        this.msgType = MsgType.IMAGE;
     }
 
     public ResponseImageMessage(String toUserName, String fromUserName) {

@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,13 +23,20 @@ public abstract class MessageAdapter{
      */
     private static Map<Method,Class> map;
 
-    public MessageAdapter(Class<? extends MessageAdapter> clazz){
-        Method[] methods = clazz.getDeclaredMethods();
-        for(Method method : methods){
-            Class[] paraClazzs = method.getParameterTypes();
-            if(paraClazzs != null && 1 == paraClazzs.length){
-                if(AcceptMessage.class.isAssignableFrom(paraClazzs[0])){//is parent from AcceptMessage
-                    AdapterMap.getAdapterMap().put(method,clazz); // add access method
+    /**
+     * init classes
+     * @param classes classes include(@MessageProcess)
+     */
+    public static void init(List<Class> classes){
+        for(Class clazz : classes){
+            Method[] methods = clazz.getDeclaredMethods();
+
+            for(Method method : methods){
+                Class[] paraClazzs = method.getParameterTypes();
+                if(paraClazzs != null && 1 == paraClazzs.length){
+                    if(AcceptMessage.class.isAssignableFrom(paraClazzs[0])){//is parent from AcceptMessage
+                        AdapterMap.getAdapterMap().put(method,clazz); // add access method
+                    }
                 }
             }
         }
@@ -43,10 +51,10 @@ public abstract class MessageAdapter{
         for(Map.Entry<Method,Class> entry : AdapterMap.getAdapterMap().entrySet()){
             Method tar = entry.getKey();
             try {
-                 ResponseMessage ret = (ResponseMusicMessage) tar.invoke(entry.getValue(),acceptMessage);
-                 ret.setFromUserName(acceptMessage.getToUserName());
-                 ret.setToUserName(acceptMessage.getFromUserName());
+                 ResponseMessage ret = (ResponseMessage) tar.invoke(entry.getValue().newInstance(),acceptMessage);
 
+                 ret.setFromUserName(acceptMessage.getToUserName());// addFromUsername
+                 ret.setToUserName(acceptMessage.getFromUserName());// addToUsername
                  return StreamUtil.ObjToXml(ret);
             } catch (Exception e) {
                 continue;

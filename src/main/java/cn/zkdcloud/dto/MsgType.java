@@ -1,4 +1,4 @@
-package cn.zkdcloud.entity;
+package cn.zkdcloud.dto;
 
 /**
  * 消息类型
