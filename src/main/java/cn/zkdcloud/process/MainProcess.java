@@ -1,5 +1,6 @@
 package cn.zkdcloud.process;
 
+import cn.zkdcloud.core.MessageAdapter;
 import cn.zkdcloud.dto.AcceptMessage;
 import cn.zkdcloud.dto.ResponseMessage;
 import cn.zkdcloud.dto.responseMessage.ResponseMusicMessage;
@@ -75,9 +76,6 @@ public class MainProcess {
             return "success";
         }
 
-
-
-
-        return "";
+        return MessageAdapter.doAdapter(acceptMessage);
     }
 }

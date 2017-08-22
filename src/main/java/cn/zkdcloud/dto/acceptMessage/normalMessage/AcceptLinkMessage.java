@@ -5,17 +5,17 @@ import cn.zkdcloud.dto.acceptMessage.AcceptNormalMessage;
 /**
  * 链接消息
  */
-public class AcceptLinkMessage extends AcceptNormalMessage{
-    /*
-    链接标题
+public class AcceptLinkMessage extends AcceptNormalMessage {
+    /**
+     * 链接标题
      */
     private String title;
-    /*
-    链接描述
+    /**
+     * 链接描述
      */
     private String description;
-    /*
-    链接url
+    /**
+     * 链接url
      */
     private String url;
 

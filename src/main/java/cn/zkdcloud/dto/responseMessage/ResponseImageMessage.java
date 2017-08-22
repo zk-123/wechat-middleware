@@ -10,11 +10,15 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
  */
 @XStreamAlias("xml")
 public class ResponseImageMessage extends ResponseMessage {
-    /*
-    图片
+    /**
+     * 图片
      */
     @XStreamAlias("Image")
     private Image image;
+
+    public ResponseImageMessage() {
+
+    }
 
     public ResponseImageMessage(String toUserName, String fromUserName) {
         super(toUserName, fromUserName);
@@ -29,8 +33,8 @@ public class ResponseImageMessage extends ResponseMessage {
         this.image = image;
     }
 
-    /*
-    回复图片类
+    /**
+     * 回复图片类
      */
     public static class Image {
 

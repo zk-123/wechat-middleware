@@ -6,16 +6,16 @@ import cn.zkdcloud.dto.acceptMessage.AcceptNormalMessage;
  * 语音消息
  */
 public class AcceptVoiceMessage extends AcceptNormalMessage {
-    /*
-    mediaId
+    /**
+     * mediaId
      */
     private String mediaId;
-    /*
-    语音格式
+    /**
+     * 语音格式
      */
     private String format;
-    /*
-    语音识别结果
+    /**
+     * 语音识别结果
      */
     private String recognition;
 

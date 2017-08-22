@@ -23,4 +23,8 @@ public class AcceptTextMessage extends AcceptNormalMessage {
     public String getContent() {
         return content;
     }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

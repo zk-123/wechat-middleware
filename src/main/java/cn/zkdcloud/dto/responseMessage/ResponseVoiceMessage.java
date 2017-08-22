@@ -10,6 +10,10 @@ public class ResponseVoiceMessage extends ResponseMessage{
     @XStreamAlias("Voice")
     private Voice voice;
 
+    public ResponseVoiceMessage(){
+
+    }
+
     public ResponseVoiceMessage(String toUserName, String fromUserName) {
         super(toUserName, fromUserName);
         this.msgType = MsgType.VOICE;

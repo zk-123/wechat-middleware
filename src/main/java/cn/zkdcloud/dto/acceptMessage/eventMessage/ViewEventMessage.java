@@ -2,9 +2,9 @@ package cn.zkdcloud.dto.acceptMessage.eventMessage;
 
 import cn.zkdcloud.dto.acceptMessage.AcceptEventMessage;
 
-public class ViewEventMessage extends AcceptEventMessage{
-    /*
-    跳转的url
+public class ViewEventMessage extends AcceptEventMessage {
+    /**
+     * 跳转的url
      */
     private String viewKey;
 

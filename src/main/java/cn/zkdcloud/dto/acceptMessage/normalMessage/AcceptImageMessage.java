@@ -7,12 +7,12 @@ import cn.zkdcloud.dto.acceptMessage.AcceptNormalMessage;
  */
 public class AcceptImageMessage extends AcceptNormalMessage {
 
-    /*
-    picUrl图片路径
+    /**
+     * picUrl图片路径
      */
     private String picUrl;
-    /*
-    mediaId
+    /**
+     * mediaId
      */
     private String mediaId;
 

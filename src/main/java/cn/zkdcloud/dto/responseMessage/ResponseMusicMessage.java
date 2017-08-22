@@ -5,11 +5,18 @@ import cn.zkdcloud.entity.MsgType;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
+/**
+ * 返回图片格式Message
+ */
 @XStreamAlias("xml")
-public class ResponseMusicMessage extends ResponseMessage{
+public class ResponseMusicMessage extends ResponseMessage {
 
     @XStreamAlias("Music")
     private Music music;
+
+    public ResponseMusicMessage() {
+
+    }
 
     public ResponseMusicMessage(String toUserName, String fromUserName) {
         super(toUserName, fromUserName);
@@ -24,35 +31,35 @@ public class ResponseMusicMessage extends ResponseMessage{
         this.music = music;
     }
 
-    public static class Music{
-        /*
-        title
+    public static class Music {
+        /**
+         * title
          */
         @XStreamAlias("Title")
         private String title;
-        /*
-        description
+        /**
+         * description
          */
         @XStreamAlias("Description")
         private String description;
-        /*
-        music url
+        /**
+         * music url
          */
         @XStreamAlias("MusicUrl")
         private String musicUrl;
-        /*
-        高清 music url(选填)
+        /**
+         * 高清 music url(选填)
          */
         @XStreamAlias("HQMusicUrl")
         private String hqMusicUrl;
-        /*
-        缩略图的媒体id
+        /**
+         * 缩略图的媒体id
          */
         @XStreamAlias("ThumbMediaId")
         private String thumbMediaId;
 
-        public static Music getMusic(String title,String description,String musicUrl,
-                                     String hqMusicUrl,String thumbMediaId){
+        public static Music getMusic(String title, String description, String musicUrl,
+                                     String hqMusicUrl, String thumbMediaId) {
             Music ret = new Music();
             ret.title = title;
             ret.description = description;

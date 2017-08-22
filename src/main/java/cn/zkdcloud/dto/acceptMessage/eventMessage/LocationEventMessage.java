@@ -7,18 +7,18 @@ import cn.zkdcloud.dto.acceptMessage.AcceptEventMessage;
  * 公众号可以在公众平台网站中修改以上设置。上报地理位置时，微信会将上报地理位置事件推送到开发者填写的URL。
  */
 public class LocationEventMessage extends AcceptEventMessage {
-    /*
-    维度
+    /**
+     * 维度
      */
     private String latitude;
 
-    /*
-    经度
+    /**
+     * 经度
      */
     private String longitude;
 
-    /*
-    精度
+    /**
+     * 精度
      */
     private String precision;
 

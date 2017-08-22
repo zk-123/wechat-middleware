@@ -6,12 +6,12 @@ import cn.zkdcloud.dto.acceptMessage.AcceptNormalMessage;
  * 小视频消息
  */
 public class AcceptShotVideoMessage extends AcceptNormalMessage {
-    /*
-    mediaId
+    /**
+     * mediaId
      */
     private String mediaId;
-    /*
-    视频消息缩略图的媒体id
+    /**
+     * 视频消息缩略图的媒体id
      */
     private String thumMediaId;
 

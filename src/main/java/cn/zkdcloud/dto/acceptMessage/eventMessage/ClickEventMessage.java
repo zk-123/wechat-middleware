@@ -5,9 +5,9 @@ import cn.zkdcloud.dto.acceptMessage.AcceptEventMessage;
 /**
  * 点击菜单拉取事件
  */
-public class ClickEventMessage extends AcceptEventMessage{
-    /*
-    KEY值与自定义菜单接口中KEY值对应
+public class ClickEventMessage extends AcceptEventMessage {
+    /**
+     * KEY值与自定义菜单接口中KEY值对应
      */
     private String eventKey;
 

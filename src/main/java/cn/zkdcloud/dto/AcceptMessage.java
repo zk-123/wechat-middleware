@@ -2,11 +2,13 @@ package cn.zkdcloud.dto;
 
 import cn.zkdcloud.dto.acceptMessage.AcceptEventMessage;
 import cn.zkdcloud.dto.acceptMessage.AcceptNormalMessage;
+import cn.zkdcloud.entity.Event;
 import cn.zkdcloud.entity.MsgType;
 import cn.zkdcloud.util.StreamUtil;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
 
@@ -27,7 +29,7 @@ public abstract class AcceptMessage extends Message {
         AcceptMessage ret;
         Map<String, String> data = StreamUtil.xmlToMap(request);
 
-        if (data.get("MsgType").equalsIgnoreCase(MsgType.EVENT.toString())) {
+        if (MsgType.EVENT.toString().equalsIgnoreCase(data.get("MsgType"))) {
             ret = AcceptEventMessage.eventResolver(data); //事件消息
         } else {
             ret = AcceptNormalMessage.messageResolver(data); //一般消息
@@ -49,12 +51,49 @@ public abstract class AcceptMessage extends Message {
         T t = clazz.newInstance();
 
         for (String key : data.keySet()) { //fill message
-            Method method = clazz.getMethod("set" + data.get(key));
-            if (method != null) {
-                method.invoke(t, data.get(key));
+            Class tarClass = getFieldByName(key.substring(0, 1).toLowerCase() + key.substring(1),clazz);// find type
+
+            Method method = clazz.getMethod("set" + key, tarClass);//normalFile
+            method.invoke(t, parseTo(tarClass,data.get(key)));
+        }
+        return t;
+    }
+
+    /**
+     * 根据字段名，寻找该类和其父类中的字段
+     * @param fieldName
+     * @return
+     */
+    public static Class getFieldByName(String fieldName,Class clazz){
+        for(Field field : clazz.getDeclaredFields()){
+            if(field.getName().equalsIgnoreCase(fieldName)){
+                return field.getType();
             }
         }
 
-        return t;
+        if(Object.class != clazz.getSuperclass()){// if not find in this class ,then find in it's superclass
+            return getFieldByName(fieldName,clazz.getSuperclass());
+        }
+        return null;
+    }
+
+    /**
+     *  想着直接强制转化，无奈不能，只能根据接收的类型来强制转化
+     * @param tarClass tar
+     * @param source source
+     * @return obj
+     */
+    public static Object parseTo(Class tarClass,String source){
+        if(tarClass == String.class){
+            return source;
+        } else if (tarClass == long.class){
+            return Long.valueOf(source);
+        } else if (tarClass == MsgType.class){
+            return MsgType.valueOf(source.toUpperCase());
+        } else if(tarClass == Event.class){
+            return Event.valueOf(source.toUpperCase());
+        } else {
+            return source;
+        }
     }
 }
