@@ -10,6 +10,7 @@ import org.dom4j.io.SAXReader;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -28,29 +29,25 @@ public class StreamUtil {
     }
 
     /**
-     * request输入流中xml to map
+     * request输入流中xml to json(除去数组-.-)
      *
      * @param request request
-     * @return retmap
+     * @return json
      */
-    public static Map<String, String> xmlToMap(HttpServletRequest request) {
-        Map<String, String> map = new HashMap<String, String>();
+    public static String xmlToJson(HttpServletRequest request) {
         InputStream inputStream = null;
         SAXReader reader = new SAXReader();
         Document doc = null;
-
+        StringBuffer jsonBuffer = new StringBuffer("");
         try {
             inputStream = request.getInputStream();
             doc = reader.read(inputStream);
 
             Element root = doc.getRootElement();
-            List<Element> list = root.elements();
-            for (Element e : list) {
-                map.put(e.getName(), e.getText());
-            }
+            jsonBuffer.append(getElementValue(root));
             inputStream.close();
 
-            return map;
+            return jsonBuffer.toString();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (DocumentException e) {
@@ -58,7 +55,35 @@ public class StreamUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return "";
+    }
+
+    /**
+     * 递归返回xml子列表json字符串
+     * @param element e
+     * @return json
+     */
+    public static String getElementValue(Element element){
+        List<Element> childElements = element.elements();
+
+        if(AssertUtil.isNullOrEmpty(childElements)){
+            return "\"" + element.getText() + "\"";
+        }
+
+        StringBuffer jsonBuffer = new StringBuffer("{");
+        Iterator<Element> iterator = childElements.iterator();
+        while(iterator.hasNext()){
+            Element e = iterator.next();
+            jsonBuffer.append("\"" + e.getName() + "\" : ");
+            jsonBuffer.append(getElementValue(e));
+
+            if(iterator.hasNext()){
+                jsonBuffer.append(",");
+            }
+        }
+
+        jsonBuffer.append("}");
+        return jsonBuffer.toString();
     }
 
     /**

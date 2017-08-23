@@ -3,12 +3,13 @@ package cn.zkdcloud.process;
 import cn.zkdcloud.annotation.MessageProcess;
 import cn.zkdcloud.core.MessageAdapter;
 import cn.zkdcloud.dto.ResponseMessage;
-import cn.zkdcloud.dto.acceptMessage.eventMessage.LocationEventMessage;
-import cn.zkdcloud.dto.acceptMessage.eventMessage.ScanEventMessage;
-import cn.zkdcloud.dto.acceptMessage.normalMessage.AcceptImageMessage;
-import cn.zkdcloud.dto.acceptMessage.normalMessage.AcceptLocationMessage;
-import cn.zkdcloud.dto.acceptMessage.normalMessage.AcceptTextMessage;
-import cn.zkdcloud.dto.responseMessage.ResponseImageMessage;
+import cn.zkdcloud.dto.acceptMessage.Event;
+import cn.zkdcloud.dto.acceptMessage.eventMessage.*;
+import cn.zkdcloud.dto.acceptMessage.eventMessage.menuEventMessage.ClickEventMessage;
+import cn.zkdcloud.dto.acceptMessage.eventMessage.menuEventMessage.MenuScanEventMessage;
+import cn.zkdcloud.dto.acceptMessage.eventMessage.menuEventMessage.PhotoEventMessage;
+import cn.zkdcloud.dto.acceptMessage.eventMessage.menuEventMessage.ViewEventMessage;
+import cn.zkdcloud.dto.acceptMessage.normalMessage.*;
 import cn.zkdcloud.dto.responseMessage.ResponseTextMessage;
 import cn.zkdcloud.util.StreamUtil;
 
@@ -54,10 +55,79 @@ public class TestMessage extends MessageAdapter{
 
     /**
      * 主动上传地理位置消息
-     * @param message
-     * @return
+     * @param message location
+     * @return ret
      */
     public ResponseMessage locationMessage(AcceptLocationMessage message){
         return new ResponseTextMessage(StreamUtil.ObjToXml(message));
     }
+
+    /**
+     * 语音识别消息
+     * @param message voice
+     * @return ret
+     */
+    public ResponseMessage voiceMessage(AcceptVoiceMessage message){
+        return new ResponseTextMessage("这条语音识别为：" + message.getRecognition());
+    }
+
+    /**
+     * 短视频消息
+     * @param message video
+     * @return ret
+     */
+    public ResponseMessage shotVideo(AcceptVideoMessage message){
+        return new ResponseTextMessage("video is" + StreamUtil.ObjToXml(message));
+    }
+
+    /**
+     * 关注/取消关注事件
+     * @param message sub/unsub message
+     * @return ret
+     */
+    public ResponseMessage subScribeEventMessage(SubscribeEventMessage message){
+        if(message.getEvent() == Event.SUBSCRIBE){
+            return new ResponseTextMessage("欢迎订阅");
+        } else {
+            System.out.println("该用户已经取消订阅了-.-");
+            return null;
+        }
+    }
+
+    /**
+     * 自定义菜单事件点击
+     * @param message clickMessage
+     * @return ret
+     */
+    public ResponseMessage clickEventMessage(ClickEventMessage message){
+        return new ResponseTextMessage("event key is : " + message.getEventKey());
+    }
+
+    /**
+     * 自定义菜单点击view事件消息
+     * @param message message
+     * @return ret
+     */
+    public ResponseMessage viewEventMessage(ViewEventMessage message){
+        return new ResponseTextMessage("event view key is :" + message.getViewKey());
+    }
+
+    /**
+     * 二维码扫描结果
+     * @param menuScanEventMessage message
+     * @return ret
+     */
+    public ResponseMessage scanEventMessage(MenuScanEventMessage menuScanEventMessage){
+        return new ResponseTextMessage("识别结果是:" + menuScanEventMessage.getScanCodeInfo().getScanResult());
+    }
+
+    /**
+     * 图片事件
+     * @param message photoMessage
+     * @return ret
+     */
+    public ResponseMessage photoEventMessage(PhotoEventMessage message){
+        return new ResponseTextMessage("图片事件消息...." + message.getSendPicsInfo().getPicList().get(0).getPicMd5Sum());
+    }
+
 }

@@ -3,7 +3,7 @@ package cn.zkdcloud.dto.acceptMessage.eventMessage;
 import cn.zkdcloud.dto.acceptMessage.AcceptEventMessage;
 
 /**
- * 用户扫码事件
+ * 用户扫码事件(这个不知道什么时候触发)
  */
 public class ScanEventMessage extends AcceptEventMessage {
     /**

@@ -3,8 +3,7 @@ package cn.zkdcloud.dto.acceptMessage;
 import cn.zkdcloud.dto.AcceptMessage;
 import cn.zkdcloud.dto.acceptMessage.normalMessage.*;
 import cn.zkdcloud.dto.MsgType;
-
-import java.util.Map;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 一般消息
@@ -24,31 +23,34 @@ public abstract class AcceptNormalMessage extends AcceptMessage{
     }
 
     /**
-     * 将data 根据不同的msgType转化成不同的message
-     * @param data request data
+     * 将json str 根据不同的msgType转化成不同的message
+     * @param json request jsonData
      * @return ret
      */
-    public static AcceptNormalMessage messageResolver(Map<String, String> data) throws Exception {
+    public static AcceptNormalMessage messageResolver(JSONObject json) throws Exception {
         AcceptNormalMessage ret;
 
-        switch (MsgType.valueOf(data.get("MsgType").toUpperCase())) {
+        switch (MsgType.valueOf(json.getString("MsgType").toUpperCase())) {
             case TEXT:
-                ret = fillMessage(data, AcceptTextMessage.class);
+                ret = json.toJavaObject(AcceptTextMessage.class);
                 break;
             case IMAGE:
-                ret = fillMessage(data, AcceptImageMessage.class);
+                ret = json.toJavaObject(AcceptImageMessage.class);
                 break;
             case VOICE:
-                ret = fillMessage(data, AcceptVoiceMessage.class);
+                ret = json.toJavaObject(AcceptVoiceMessage.class);
+                break;
+            case VIDEO:
+                ret = json.toJavaObject(AcceptVideoMessage.class);
                 break;
             case SHORTVIDEO:
-                ret = fillMessage(data, AcceptShotVideoMessage.class);
+                ret = json.toJavaObject(AcceptVideoMessage.class);
                 break;
             case LOCATION:
-                ret = fillMessage(data, AcceptLocationMessage.class);
+                ret = json.toJavaObject(AcceptLocationMessage.class);
                 break;
             case LINK:
-                ret = fillMessage(data,AcceptLinkMessage.class);
+                ret = json.toJavaObject(AcceptLinkMessage.class);
                 break;
             default:
                 ret = null;

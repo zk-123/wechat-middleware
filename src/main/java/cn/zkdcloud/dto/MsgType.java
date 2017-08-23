@@ -21,7 +21,10 @@ public enum MsgType {
      * 语音类型
      */
     VOICE,
-
+    /**
+     * 视频消息
+     */
+    VIDEO,
     /**
      * 小视频类型
      */

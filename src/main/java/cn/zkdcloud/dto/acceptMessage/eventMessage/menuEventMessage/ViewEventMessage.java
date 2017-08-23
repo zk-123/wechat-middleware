@@ -1,8 +1,12 @@
-package cn.zkdcloud.dto.acceptMessage.eventMessage;
+package cn.zkdcloud.dto.acceptMessage.eventMessage.menuEventMessage;
 
 import cn.zkdcloud.dto.acceptMessage.AcceptEventMessage;
+import cn.zkdcloud.dto.acceptMessage.eventMessage.MenuEventMessage;
 
-public class ViewEventMessage extends AcceptEventMessage {
+/**
+ * 链接点击事件
+ */
+public class ViewEventMessage extends MenuEventMessage {
     /**
      * 跳转的url
      */

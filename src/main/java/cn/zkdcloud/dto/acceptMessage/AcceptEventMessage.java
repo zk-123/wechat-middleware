@@ -2,8 +2,11 @@ package cn.zkdcloud.dto.acceptMessage;
 
 import cn.zkdcloud.dto.AcceptMessage;
 import cn.zkdcloud.dto.acceptMessage.eventMessage.*;
-
-import java.util.Map;
+import cn.zkdcloud.dto.acceptMessage.eventMessage.menuEventMessage.ClickEventMessage;
+import cn.zkdcloud.dto.acceptMessage.eventMessage.menuEventMessage.MenuScanEventMessage;
+import cn.zkdcloud.dto.acceptMessage.eventMessage.menuEventMessage.PhotoEventMessage;
+import cn.zkdcloud.dto.acceptMessage.eventMessage.menuEventMessage.ViewEventMessage;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 事件消息
@@ -24,31 +27,44 @@ public abstract class AcceptEventMessage extends AcceptMessage {
 
     /**
      * 将data根据event类型转成不同的事件
-     *
-     * @param data requestData
-     * @return ret
+     * @param json json
+     * @return acceptEventMessage
+     * @throws Exception exception
      */
-    public static AcceptEventMessage eventResolver(Map<String, String> data) throws Exception {
+    public static AcceptEventMessage eventResolver(JSONObject json) throws Exception {
         AcceptEventMessage ret;
+        json.put("Event",json.getString("Event").toUpperCase());
 
-        switch (Event.valueOf(data.get("Event").toUpperCase())) {
+        switch (Event.valueOf(json.getString("Event").toUpperCase())) {
             case SCAN:
-                ret = fillMessage(data, ScanEventMessage.class);
+                ret = json.toJavaObject(ScanEventMessage.class);
                 break;
             case VIEW:
-                ret = fillMessage(data, ViewEventMessage.class);
+                ret = json.toJavaObject(ViewEventMessage.class);
                 break;
             case CLICK:
-                ret = fillMessage(data, ClickEventMessage.class);
+                ret = json.toJavaObject(ClickEventMessage.class);
                 break;
             case LOCATION:
-                ret = fillMessage(data, LocationEventMessage.class);
+                ret = json.toJavaObject(LocationEventMessage.class);
                 break;
             case SUBSCRIBE:
-                ret = fillMessage(data, SubscribeEventMessage.class);
+                ret = json.toJavaObject(SubscribeEventMessage.class);
                 break;
-            case UBSUBSCRIBE:
-                ret = fillMessage(data,SubscribeEventMessage.class);
+            case UNSUBSCRIBE:
+                ret = json.toJavaObject(SubscribeEventMessage.class);
+                break;
+            case SCANCODE_PUSH:
+                ret = json.toJavaObject(MenuScanEventMessage.class);
+                break;
+            case SCANCODE_WAITMSG:
+                ret = json.toJavaObject(MenuScanEventMessage.class);
+                break;
+            case PIC_SYSPHOTO:
+                ret = json.toJavaObject(PhotoEventMessage.class);
+                break;
+            case PIC_PHOTO_OR_ALBUM:
+                ret = json.toJavaObject(PhotoEventMessage.class);
                 break;
             default:
                 ret = null;

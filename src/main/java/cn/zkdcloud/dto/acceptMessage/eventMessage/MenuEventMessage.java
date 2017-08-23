@@ -2,14 +2,11 @@ package cn.zkdcloud.dto.acceptMessage.eventMessage;
 
 import cn.zkdcloud.dto.acceptMessage.AcceptEventMessage;
 
-/**
- * 点击菜单拉取事件
- */
-public class ClickEventMessage extends AcceptEventMessage {
+public abstract class MenuEventMessage extends AcceptEventMessage {
     /**
-     * KEY值与自定义菜单接口中KEY值对应
+     * 事件key
      */
-    private String eventKey;
+    protected String eventKey;
 
     public String getEventKey() {
         return eventKey;

@@ -3,9 +3,9 @@ package cn.zkdcloud.dto.acceptMessage.normalMessage;
 import cn.zkdcloud.dto.acceptMessage.AcceptNormalMessage;
 
 /**
- * 小视频消息
+ * 视频和小视频消息
  */
-public class AcceptShotVideoMessage extends AcceptNormalMessage {
+public class AcceptVideoMessage extends AcceptNormalMessage {
     /**
      * mediaId
      */

@@ -9,6 +9,7 @@ import cn.zkdcloud.dto.responseMessage.ResponseTextMessage;
 
 import cn.zkdcloud.util.ConfirmUtil;
 import cn.zkdcloud.util.StreamUtil;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,11 +58,11 @@ public class MainProcess {
     @RequestMapping(value = "/weChatOn", produces = "text/plain;charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
     public String operator(HttpServletRequest request) {
+
         AcceptMessage acceptMessage ;
 
         try {
             acceptMessage = AcceptMessage.prepareMessage(request);
-            System.out.println(StreamUtil.ObjToXml(acceptMessage));
         } catch (Exception e) {
             logger.error(e.getMessage() + "---初始化消息失败");
             return "success";
