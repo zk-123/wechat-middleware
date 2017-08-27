@@ -11,22 +11,23 @@ import java.util.List;
  */
 public class ConfirmUtil {
 
-    /**微信认证
+    /**
+     * 微信认证
      *
      * @param signature 签名
      * @param timestamp 时间戳
-     * @param nonce 随机数
-     * @param echostr 随机字符串
+     * @param nonce     随机数
+     * @param echostr   随机字符串
      * @return
      */
-    public static String confirm(String signature,String timestamp,String nonce,String echostr){
+    public static String confirm(String signature, String timestamp, String nonce, String echostr) {
         List<String> list = new ArrayList<String>();
         list.add(Const.TOKEN);
         list.add(timestamp);
         list.add(nonce);
 
         Collections.sort(list, new SpellComparator()); //排序
-        String temp = list.get(0) +list.get(1) + list.get(2);//拼接字符串
+        String temp = list.get(0) + list.get(1) + list.get(2);//拼接字符串
 
         String digest = new SHA1().getDigestOfString(temp.getBytes());//sha1 校验并返回结果
         return digest.equalsIgnoreCase(signature) == true ? echostr : "";

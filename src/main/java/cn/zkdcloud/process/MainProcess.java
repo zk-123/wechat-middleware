@@ -1,17 +1,10 @@
 package cn.zkdcloud.process;
 
-import cn.zkdcloud.core.MessageAdapter;
-import cn.zkdcloud.dto.AcceptMessage;
-import cn.zkdcloud.dto.ResponseMessage;
-import cn.zkdcloud.dto.responseMessage.ResponseMusicMessage;
-import cn.zkdcloud.dto.responseMessage.ResponseNewsMessage;
-import cn.zkdcloud.dto.responseMessage.ResponseTextMessage;
+import cn.zkdcloud.component.message.AbstractAcceptMessage;
+import cn.zkdcloud.core.MessageComponent;
 
 import cn.zkdcloud.util.ConfirmUtil;
-import cn.zkdcloud.util.StreamUtil;
-import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,6 +45,7 @@ public class MainProcess {
 
     /**
      * 用户请求主接口
+     *
      * @param request request
      * @return ret
      */
@@ -59,15 +53,15 @@ public class MainProcess {
     @ResponseBody
     public String operator(HttpServletRequest request) {
 
-        AcceptMessage acceptMessage ;
+        AbstractAcceptMessage acceptMessage;
 
         try {
-            acceptMessage = AcceptMessage.prepareMessage(request);
+            acceptMessage = AbstractAcceptMessage.prepareMessage(request);
         } catch (Exception e) {
             logger.error(e.getMessage() + "---初始化消息失败");
             return "success";
         }
 
-        return MessageAdapter.doAdapter(acceptMessage);
+        return MessageComponent.doAdapter(acceptMessage);
     }
 }

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class PageProcess {
     private static Logger logger = Logger.getLogger(PageProcess.class);
 
-    @RequestMapping(value = "/menu",method = RequestMethod.GET)
-    public String addMenuPage(){
+    @RequestMapping(value = "/menu", method = RequestMethod.GET)
+    public String addMenuPage() {
         return "menu";
     }
 }

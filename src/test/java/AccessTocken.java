@@ -1,7 +1,8 @@
-import cn.zkdcloud.util.WeChatUtil;
+import cn.zkdcloud.util.AccessToken;
 
 public class AccessTocken {
-    public static void main(String[] args){
-        System.out.println(WeChatUtil.getGetAccessToken());
+
+    public void getAccessTocken(){
+        System.out.println(AccessToken.getAccessToken());
     }
 }

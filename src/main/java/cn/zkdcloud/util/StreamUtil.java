@@ -60,24 +60,25 @@ public class StreamUtil {
 
     /**
      * 递归返回xml子列表json字符串
+     *
      * @param element e
      * @return json
      */
-    public static String getElementValue(Element element){
+    public static String getElementValue(Element element) {
         List<Element> childElements = element.elements();
 
-        if(AssertUtil.isNullOrEmpty(childElements)){
+        if (AssertUtil.isNullOrEmpty(childElements)) {
             return "\"" + element.getText() + "\"";
         }
 
         StringBuffer jsonBuffer = new StringBuffer("{");
         Iterator<Element> iterator = childElements.iterator();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             Element e = iterator.next();
             jsonBuffer.append("\"" + e.getName() + "\" : ");
             jsonBuffer.append(getElementValue(e));
 
-            if(iterator.hasNext()){
+            if (iterator.hasNext()) {
                 jsonBuffer.append(",");
             }
         }
