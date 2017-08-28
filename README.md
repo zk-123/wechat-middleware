@@ -11,16 +11,16 @@
 ```` tree
 message
 ├── Message.java  --abstract class，是所有接受消息和回复消息父类
-├── AcceptMessage.java --abstract class,所有接受消息的父类
-├── ResponseMessage.java --abstract class,所有回复消息的父类
+├── AbstractAcceptMessage.java --abstract class,所有接受消息的父类
+├── AbstractResponseMessage.java --abstract class,所有回复消息的父类
 ├── MsgType.java  --enum,message类型
-├── acceptMessage 
-│   ├── AcceptEventMessage.java --abstract class,接受事件类型消息的父类
-│   ├── AcceptNormalMessage.java --abstract class,接受其他类型消息的父类
+├── AbstractacceptMessage 
+│   ├── AbstractAcceptEventMessage.java --abstract class,接受事件类型消息的父类
+│   ├── AbstractAcceptNormalMessage.java --abstract class,接受其他类型消息的父类
 │   ├── Event.java --enum，所有事件类型
 │   ├── eventMessage
 │   │   ├── LocationEventMessage.java --上传地理位置事件，当用户同意上传地位位置后，被动的上传
-│   │   ├── MenuEventMessage.java --abstract class,所有菜单事件的父类
+│   │   ├── AbstractMenuEventMessage.java --abstract class,所有菜单事件的父类
 │   │   ├── ScanEventMessage.java -- 二维码扫描事件
 │   │   ├── SubscribeEventMessage.java --关注/取消关注事件
 |   |   └── menuEventMessage --菜单类型触发的事件
@@ -76,4 +76,7 @@ public class TestProcess{
 ````
 + 加` @MessageProcess`声明，标识该类为一个微信处理器
 + 该类下的所有方法都是消息处理方法，参数必须只有一个标识期望接受一个什么类型的消息（请仔细阅读上面的消息bean）,如果多重复的消息参数，只有第一个声明的方法有效
-+ 处理方法返回需要返回的消息类型，方法体重只处理消息内容，其他细节，比如：创建时间，发送人，发送方等等.....
++ 处理方法返回需要返回的消息类型，方法体重只处理消息内容，其他细节，比如：创建时间，发送人，发送方等等均不需要处理.....
+
+## 自定义菜单
+
