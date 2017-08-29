@@ -107,3 +107,10 @@ MenuComponent.deleteMenu();
 + 3.好像有点麻烦了。
 
 > [代码示例](https://github.com/zk-123/weChatDemo/tree/master/menu)
+## 更新中
+更新中......
+
+## 最后
+> 当你在穿山越岭的另一边，我在孤独的路上没有尽头。
+
+> 一辈子有多少的来不及，发现已经失去最重要的东西。
