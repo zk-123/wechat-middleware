@@ -76,6 +76,6 @@ public class TestProcess{
 + 加` @MessageProcess`声明，标识该类为一个微信处理器
 + 该类下的所有方法都是消息处理方法，参数必须只有一个标识期望接受一个什么类型的消息（请仔细阅读上面的消息bean）,如果多重复的消息参数，只有第一个声明的方法有效
 + 处理方法返回需要返回的消息类型，方法体重只处理消息内容，其他细节，比如：创建时间，发送人，发送方等等均不需要处理.....
-> [代码示例](https://github.com/zk-123/weChatDemo/tree/master/messageDemo)
+> [代码示例](https://github.com/zk-123/weChatDemo/tree/master/message)
 ## 自定义菜单
 
