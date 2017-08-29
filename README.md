@@ -51,7 +51,7 @@ message
 <dependency>
     <groupId>cn.zkdcloud</groupId>
     <artifactId>weChat</artifactId>
-    <version>0.2-RELEASE</version>
+    <version>0.4-RELEASE</version>
 </dependency>
 ````
 ### 新建一个控制类 

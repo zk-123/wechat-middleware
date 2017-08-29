@@ -6,7 +6,7 @@
 
     <groupId>cn.zkdcloud</groupId>
     <artifactId>weChat</artifactId>
-    <version>0.3-RELEASE</version>
+    <version>0.4-RELEASE</version>
 
     <name>wechat middleware</name>
     <description>we can use it easy to build weChat</description>

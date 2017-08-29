@@ -35,21 +35,6 @@ public class Menu {
     }
 
     /**
-     * 生成菜单
-     *
-     * @return httpRet
-     */
-    public JSONObject build() {
-        String data = JSON.toJSONString(this).toLowerCase();//notice should be lowerCase otherwise will return ' not utf-8' error
-        System.out.println(data);
-        String ret = HttpUtil.doPost(MenuComponent.CREATE, data);
-        if (null != ret) {
-            return JSONObject.parseObject(ret);
-        }
-        return null;
-    }
-
-    /**
      * 根据json构建菜单
      *
      * @param menuJson menuJson

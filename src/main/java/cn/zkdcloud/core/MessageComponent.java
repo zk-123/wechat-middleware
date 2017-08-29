@@ -75,12 +75,11 @@ public class MessageComponent implements Component {
 
                     ret.setFromUserName(acceptMessage.getToUserName());// addFromUsername
                     ret.setToUserName(acceptMessage.getFromUserName());// addToUsername
+                    if (ret == null) {
+                        return "success";
+                    }
+                    return StreamUtil.ObjToXml(ret);
                 }
-
-                if (ret == null) {
-                    return "success";
-                }
-                return StreamUtil.ObjToXml(ret);
             } catch (Exception e) {
                 continue;
             }

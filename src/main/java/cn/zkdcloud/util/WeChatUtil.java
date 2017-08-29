@@ -1,5 +1,7 @@
 package cn.zkdcloud.util;
 
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -9,13 +11,15 @@ import java.util.*;
  */
 public class WeChatUtil {
 
+    private static Logger logger = Logger.getLogger(WeChatUtil.class);
+
     private static Properties weChatProperties = new Properties();
 
     static {
         try {
             weChatProperties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("wechat.properties"));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.info("can't find wechat.properties");
         }
     }
 
