@@ -79,3 +79,33 @@ public class TestProcess{
 > [代码示例](https://github.com/zk-123/weChatDemo/tree/master/message)
 ## 自定义菜单
 
+### 创建/修改
+````java
+Menu menu = new Menu();
+menu.addButton(NormalButton.creaetOne("菜单一")
+        .addSubButton(ViewButton.createOne("百度链接", "http://www.baidu.com"))
+        .addSubButton(NormalButton.createOne(MenuType.PIC_PHOTO_OR_ALBUM, "ptoto", "拍照"))
+        .addSubButton(NormalButton.createOne(MenuType.CLICK, "click1", "click")))
+    .addButton(NormalButton.creaetOne("菜单二")
+        .addSubButton(NormalButton.createOne(MenuType.LOCATION_SELECT, "location", "发送位置"))
+        .addSubButton(NormalButton.createOne(MenuType.SCANCODE_WAITMSG, "scancode", "扫描带提示")));
+        
+MenuComponent.createMenu(menu);
+````
+该代码快创建了一个有两个一级菜单，一级菜单下分别有三个和两个按钮的菜单（一级菜单最多3个，二级菜单最多5个）
+
+### 获取
+````java
+MenuComponent.getMenu();
+````
+### 删除
+````java
+MenuComponent.deleteMenu();
+````
+### 初始化
+如果想服务启动的时候，就能自动创建自定义菜单。
++ 1.创建一个新类继承`cn.zkdcloud.core.MenuComponent`并重写其`init()`方法。
++ 2.创建一个新类继承`cn.zkdcloud.core.WeChatListener`并重写其`contextInitialized`方法（该方法中，支持添加自定义组件），添加该组件。
++ 3.好像有点麻烦了。
+
+> [代码示例](https://github.com/zk-123/weChatDemo/tree/master/menu)
