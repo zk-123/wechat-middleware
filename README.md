@@ -4,7 +4,15 @@
 [![Jenkins coverage](https://img.shields.io/jenkins/c/https/jenkins.qa.ubuntu.com/view/Utopic/view/All/job/address-book-service-utopic-i386-ci.svg?style=plastic)]()
 [![Maven Central](https://img.shields.io/maven-central/v/org.apache.maven/apache-maven.svg?style=plastic)]()
 
-
+# 使用
+## maven 引入
+````xml
+<dependency>
+    <groupId>cn.zkdcloud</groupId>
+    <artifactId>weChat</artifactId>
+    <version>0.4-RELEASE</version>
+</dependency>
+````
 # 被动接受消息/回复消息
 
 ## 消息bean
@@ -43,16 +51,6 @@ message
     ├── ResponseVideoMessage.java --回复视频消息
     └── ResponseVoiceMessage.java --回复语音消息
  
-````
-
-## 使用
-### maven 引入
-````xml
-<dependency>
-    <groupId>cn.zkdcloud</groupId>
-    <artifactId>weChat</artifactId>
-    <version>0.4-RELEASE</version>
-</dependency>
 ````
 ### 新建一个控制类 
 如：`TestProcess.java`
