@@ -7,6 +7,7 @@ import cn.zkdcloud.util.FileUtil;
 import cn.zkdcloud.util.StreamUtil;
 import org.apache.log4j.Logger;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
@@ -15,12 +16,12 @@ import java.util.Map;
 /**
  * message适配器
  */
-public  class MessageComponent implements Component{
+public class MessageComponent implements Component {
 
     private static Logger logger = Logger.getLogger(MessageComponent.class);
 
     /**
-     * adapter
+     * message适配方法
      */
     private static Map<Method, Class> map;
 
@@ -59,8 +60,8 @@ public  class MessageComponent implements Component{
     /**
      * 适配方法
      *
-     * @param acceptMessage
-     * @return
+     * @param acceptMessage acceptMessage
+     * @return response ret
      */
     public static String doAdapter(AbstractAcceptMessage acceptMessage) {
         Class exceptClass = acceptMessage.getClass();
@@ -86,6 +87,23 @@ public  class MessageComponent implements Component{
         }
         logger.info("no fit method for this request, please check it");
         return "success";
+    }
+
+    /**
+     * 适配方法
+     *
+     * @param request httpServletRequest
+     * @return response ret
+     */
+    public static String doAdapter(HttpServletRequest request) {
+        AbstractAcceptMessage acceptMessage;
+        try {
+            acceptMessage = AbstractAcceptMessage.prepareMessage(request);
+        } catch (Exception e) {
+            logger.error(e.getMessage() + "---初始化消息失败");
+            return "success";
+        }
+        return MessageComponent.doAdapter(acceptMessage);
     }
 
     /**

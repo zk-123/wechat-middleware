@@ -43,13 +43,9 @@ public class MenuComponent implements Component {
      */
     private Menu menu;
 
-    private MenuComponent() {
-
-    }
-
     @Override
     public void init() {
-        initMenu();
+
     }
 
     /**
@@ -73,7 +69,6 @@ public class MenuComponent implements Component {
         if (JsonUtil.isError(ret)) {
             return;
         }
-        logger.info("init menu success");
     }
 
     /**

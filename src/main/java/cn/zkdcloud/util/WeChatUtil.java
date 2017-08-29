@@ -1,15 +1,23 @@
 package cn.zkdcloud.util;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * 接口认证
  * Created by zk on 2016/10/30.
  */
-public class ConfirmUtil {
+public class WeChatUtil {
+
+    private static Properties weChatProperties = new Properties();
+
+    static {
+        try {
+            weChatProperties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("wechat.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 微信认证
@@ -22,7 +30,7 @@ public class ConfirmUtil {
      */
     public static String confirm(String signature, String timestamp, String nonce, String echostr) {
         List<String> list = new ArrayList<String>();
-        list.add(Const.TOKEN);
+        list.add(getToken());
         list.add(timestamp);
         list.add(nonce);
 
@@ -236,4 +244,27 @@ public class ConfirmUtil {
 
     }
 
+    /**
+     * 读取token
+     * @return token
+     */
+    public static String getToken(){
+        return weChatProperties.getProperty("token");
+    }
+
+    /**
+     * 读取appId
+     * @return appId
+     */
+    public static String getAppId(){
+        return weChatProperties.getProperty("app_id");
+    }
+
+    /**
+     * 读取appSecret
+     * @return appSecret
+     */
+    public static String getAppSecret(){
+        return weChatProperties.getProperty("app_secret");
+    }
 }

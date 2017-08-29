@@ -6,14 +6,38 @@
 
     <groupId>cn.zkdcloud</groupId>
     <artifactId>weChat</artifactId>
-    <version>1.0-RELEASE</version>
-    <packaging>jar</packaging>
+    <version>0.3-RELEASE</version>
 
-    <parent>
-        <groupId>cn.zkdcloud</groupId>
-        <artifactId>spring-springmvc-support</artifactId>
-        <version>1.0</version>
-    </parent>
+    <name>wechat middleware</name>
+    <description>we can use it easy to build weChat</description>
+    <url>https://github.com/zk-123/weChat</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <JDK.version>1.8</JDK.version>
+    </properties>
+
+    <developers>
+        <developer>
+            <name>zk123</name>
+            <email>zkdcloud_cn@163.com</email>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:zk-123/weChat</connection>
+        <developerConnection>scm:git:git@github.com:zk-123/weChat</developerConnection>
+        <url>git@github.com:zk-123/weChat.git</url>
+    </scm>
 
     <dependencies>
         <dependency>
@@ -21,13 +45,6 @@
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
         </dependency>
         <!--dom4j xml-->
         <dependency>
@@ -41,18 +58,16 @@
             <artifactId>xstream</artifactId>
             <version>1.4.9</version>
         </dependency>
-        <!--jetty server-->
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-webapp</artifactId>
-            <version>9.4.6.v20170531</version>
-        </dependency>
-
         <!--http-client-->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.5.1</version>
         </dependency>
         <!--logger-->
         <dependency>
@@ -66,13 +81,6 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.35</version>
         </dependency>
-
-        <!--freemarker-->
-        <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-            <version>2.3.23</version>
-        </dependency>
         <!--util-->
         <dependency>
             <groupId>cn.zkdcloud</groupId>
@@ -81,5 +89,65 @@
         </dependency>
     </dependencies>
 
-
+    <build>
+        <plugins>
+            <!--gpg签名-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--javaDoc-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--源码库-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <distributionManagement>
+        <repository>
+            <id>oss</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 </project>

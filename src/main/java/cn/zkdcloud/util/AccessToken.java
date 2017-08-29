@@ -7,7 +7,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.log4j.Logger;
-
 import java.io.IOException;
 
 /**
@@ -29,7 +28,7 @@ public class AccessToken {
      * access_token的url
      */
     public static String GET_ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token" +
-            "?grant_type=client_credential&appid=" + Const.APP_ID + "&secret=" + Const.APP_SECRET;
+            "?grant_type=client_credential&appid=" + WeChatUtil.getAppId() + "&secret=" + WeChatUtil.getAppSecret();
     /**
      * accessToken
      */
