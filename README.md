@@ -139,6 +139,7 @@ TemplateComponent.sendTemplateMessage(templateMessage);
 TemplateComponent.deleteTemplateMessageByName("话费提醒2");
 TemplateComponent.deleteTemplateMessageById("template id");
 ````
+> [代码示例](https://github.com/zk-123/weChatDemo/tree/master/template)
 ## 更新中
 更新中......
 
