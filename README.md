@@ -107,6 +107,38 @@ MenuComponent.deleteMenu();
 + 3.好像有点麻烦了。
 
 > [代码示例](https://github.com/zk-123/weChatDemo/tree/master/menu)
+
+## 模板消息
+模板消息初始化时，会查询所有的模板消息，并缓存到本地。
+### 查询
+````java
+ //根据模板名或shotId获取模板，先会从本地查找，若没有，则重新刷新本地模板并查找
+ TemplateComponent.getTemplateByName(name);
+ TemplateComponent.getTemplateId(shotId)
+ 
+ //查询模板列表（参数1：是否刷新本地缓存）
+ TemplateComponent.getListTemplateMessage(true);
+ TemplateComponent.getListTemplateMessage();
+````
+### 发送
+````java
+//新建模板消息
+TemplateMessage templateMessage = new TemplateMessage("openId", "templateId", "http://www.baidu.com");
+//填充data域
+templateMessage.addData("first", "本月话费提醒", "#526dea");
+templateMessage.addData("money", "1个亿");
+templateMessage.addData("paly", "10个亿");
+templateMessage.addData("donate", "100个亿");
+templateMessage.addData("remark", "您的余额不足100亿，请续缴话费！", "#cccccc");
+//send
+TemplateComponent.sendTemplateMessage(templateMessage);
+````
+### 删除
+````java
+//根据name或id删除
+TemplateComponent.deleteTemplateMessageByName("话费提醒2");
+TemplateComponent.deleteTemplateMessageById("template id");
+````
 ## 更新中
 更新中......
 
