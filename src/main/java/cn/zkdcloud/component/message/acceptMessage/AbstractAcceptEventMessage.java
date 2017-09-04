@@ -40,35 +40,38 @@ public abstract class AbstractAcceptEventMessage extends AbstractAcceptMessage {
         json.put("Event", json.getString("Event").toUpperCase());
 
         switch (Event.valueOf(json.getString("Event").toUpperCase())) {
-            case SCAN:
+            case SCAN://扫描事件
                 ret = json.toJavaObject(ScanEventMessage.class);
                 break;
-            case VIEW:
+            case VIEW://视图事件
                 ret = json.toJavaObject(ViewEventMessage.class);
                 break;
-            case CLICK:
+            case CLICK://点击事件
                 ret = json.toJavaObject(ClickEventMessage.class);
                 break;
-            case LOCATION:
+            case LOCATION://地理位置事件
                 ret = json.toJavaObject(LocationEventMessage.class);
                 break;
-            case SUBSCRIBE:
+            case SUBSCRIBE://订阅事件
                 ret = json.toJavaObject(SubscribeEventMessage.class);
                 break;
-            case UNSUBSCRIBE:
+            case UNSUBSCRIBE://取消订阅事件
                 ret = json.toJavaObject(SubscribeEventMessage.class);
                 break;
-            case SCANCODE_PUSH:
+            case SCANCODE_PUSH://扫描二维码事件
                 ret = json.toJavaObject(MenuScanEventMessage.class);
                 break;
-            case SCANCODE_WAITMSG:
+            case SCANCODE_WAITMSG://扫描二维码显示消息事件
                 ret = json.toJavaObject(MenuScanEventMessage.class);
                 break;
-            case PIC_SYSPHOTO:
+            case PIC_SYSPHOTO://调用系统相机
                 ret = json.toJavaObject(PhotoEventMessage.class);
                 break;
-            case PIC_PHOTO_OR_ALBUM:
+            case PIC_PHOTO_OR_ALBUM://调用系统或相册
                 ret = json.toJavaObject(PhotoEventMessage.class);
+                break;
+            case TEMPLATESENDJOBFINISH://模板事件反馈
+                ret = json.toJavaObject(BackStatusEventMessage.class);
                 break;
             default:
                 ret = null;

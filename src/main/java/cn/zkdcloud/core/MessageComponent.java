@@ -14,16 +14,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * message适配器
+ * 消息组件
  */
 public class MessageComponent implements Component {
 
     private static Logger logger = Logger.getLogger(MessageComponent.class);
+    /**
+     * message实例
+     */
+    public static MessageComponent messageComponent;
 
     /**
      * message适配方法
      */
-    private static Map<Method, Class> map;
+    private Map<Method, Class> adapterMap = new HashMap<Method, Class>();
 
     @Override
     public void init() {
@@ -37,12 +41,16 @@ public class MessageComponent implements Component {
         }
     }
 
+    private MessageComponent() {
+
+    }
+
     /**
      * init classes
      *
      * @param classes classes include(@MessageProcess)
      */
-    public static void init(List<Class> classes) {
+    public void init(List<Class> classes) {
         for (Class clazz : classes) {
             Method[] methods = clazz.getDeclaredMethods();
 
@@ -50,7 +58,7 @@ public class MessageComponent implements Component {
                 Class[] paraClazzs = method.getParameterTypes();
                 if (paraClazzs != null && 1 == paraClazzs.length) {
                     if (AbstractAcceptMessage.class.isAssignableFrom(paraClazzs[0])) {//is parent from AbstractAcceptMessage
-                        AdapterMap.getAdapterMap().put(method, clazz); // add access method
+                        adapterMap.put(method, clazz); // add access method
                     }
                 }
             }
@@ -63,14 +71,14 @@ public class MessageComponent implements Component {
      * @param acceptMessage acceptMessage
      * @return response ret
      */
-    public static String doAdapter(AbstractAcceptMessage acceptMessage) {
+    public String doAdapter(AbstractAcceptMessage acceptMessage) {
         Class exceptClass = acceptMessage.getClass();
         AbstractResponseMessage ret = null;
 
-        for (Map.Entry<Method, Class> entry : AdapterMap.getAdapterMap().entrySet()) {
+        for (Map.Entry<Method, Class> entry : adapterMap.entrySet()) {
             Method tar = entry.getKey();
             try {
-                if (exceptClass == tar.getParameters()[0].getType()) {
+                if (exceptClass == tar.getParameterTypes()[0]) {
                     ret = (AbstractResponseMessage) tar.invoke(entry.getValue().newInstance(), acceptMessage);
 
                     ret.setFromUserName(acceptMessage.getToUserName());// addFromUsername
@@ -94,7 +102,7 @@ public class MessageComponent implements Component {
      * @param request httpServletRequest
      * @return response ret
      */
-    public static String doAdapter(HttpServletRequest request) {
+    public String doAdapter(HttpServletRequest request) {
         AbstractAcceptMessage acceptMessage;
         try {
             acceptMessage = AbstractAcceptMessage.prepareMessage(request);
@@ -102,18 +110,18 @@ public class MessageComponent implements Component {
             logger.error(e.getMessage() + "---初始化消息失败");
             return "success";
         }
-        return MessageComponent.doAdapter(acceptMessage);
+        return doAdapter(acceptMessage);
     }
 
     /**
-     * 单实例模式获取该map（可能也是多余了，因为它的继承类之间的加载本来就是异步的，所以不需要）
+     * getInstance 获取实例
+     *
+     * @return 唯一实例
      */
-    public static class AdapterMap {
-        public static Map<Method, Class> getAdapterMap() {
-            if (map == null) {
-                map = new HashMap<Method, Class>();
-            }
-            return map;
+    public static MessageComponent getInstance() {
+        if (null == messageComponent) {
+            messageComponent = new MessageComponent();
         }
+        return messageComponent;
     }
 }

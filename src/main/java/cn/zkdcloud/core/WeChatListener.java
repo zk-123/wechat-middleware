@@ -12,7 +12,7 @@ import javax.servlet.ServletContextListener;
 public class WeChatListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        WeChat.create().startDefault();
+        WeChat.getInstance().startDefault();
     }
 
     @Override

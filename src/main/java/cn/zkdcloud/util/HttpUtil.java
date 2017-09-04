@@ -1,5 +1,6 @@
 package cn.zkdcloud.util;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -41,6 +42,28 @@ public class HttpUtil {
     }
 
     /**
+     * 执行Get方法
+     *
+     * @param url 请求方法
+     * @return
+     */
+    public static File doGet(String url, String filePath) {
+        HttpGet httpGet = new HttpGet(url);
+        return httpExecute(httpGet,filePath);
+    }
+
+    /**
+     * 无参数的Post请求
+     *
+     * @param url url
+     * @return ret
+     */
+    public static String doPost(String url) {
+        HttpPost httpPost = new HttpPost(url);
+        return httpExecute(httpPost);
+    }
+
+    /**
      * 执行POST方法
      *
      * @param url  请求url
@@ -58,7 +81,7 @@ public class HttpUtil {
     /**
      * 上传File
      *
-     * @param url query url
+     * @param url  query url
      * @param file file
      * @return ret
      */
@@ -66,39 +89,87 @@ public class HttpUtil {
         HttpPost httpPost = new HttpPost(url);
 
         FileBody body = new FileBody(file);
-        HttpEntity fileEntity = MultipartEntityBuilder.create().addPart("media",body).build();
+        HttpEntity fileEntity = MultipartEntityBuilder.create().addPart("media", body).build();
         httpPost.setEntity(fileEntity);
         return httpExecute(httpPost);
     }
 
     /**
+     * 上传file(带其他参数)
+     * @param url query url
+     * @param file file
+     * @param attach attach(json字符串组成的键值对)
+     * @return ret
+     */
+    public static String doPost(String url,File file,String attach){
+        HttpPost httpPost = new HttpPost(url);
+
+        FileBody body = new FileBody(file);
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create().addPart("media", body);
+        JSONObject attachParams = JSONObject.parseObject(attach);
+        for(String key : attachParams.keySet()){
+            builder.addTextBody(key,attachParams.getString(key));
+        }
+
+        httpPost.setEntity(builder.build());
+        return httpExecute(httpPost);
+    }
+    /**
      * 上传InputStream
      *
-     * @param url query url
+     * @param url         query url
      * @param inputStream inputStream
      * @return ret
      */
-    public static String doPost(String url, InputStream inputStream,String fileName) {
+    public static String doPost(String url, InputStream inputStream, String fileName) {
         HttpPost httpPost = new HttpPost(url);
 
-        InputStreamBody body = new InputStreamBody(inputStream,fileName);
-        HttpEntity fileEntity = MultipartEntityBuilder.create().addPart("media",body).build();
+        InputStreamBody body = new InputStreamBody(inputStream, fileName);
+        HttpEntity fileEntity = MultipartEntityBuilder.create().addPart("media", body).build();
         httpPost.setEntity(fileEntity);
         return httpExecute(httpPost);
     }
 
     /**
      * 执行请求
+     *
      * @param http request
      * @return ret
      */
-    public static String httpExecute(HttpUriRequest http){
+    public static String httpExecute(HttpUriRequest http) {
         try {
             HttpResponse response = httpClient.execute(http);
-            return EntityUtils.toString(response.getEntity());
+            return EntityUtils.toString(response.getEntity(), "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
         }
         return Const.HTTP_ERROR;
+    }
+
+    /**
+     * 执行请求，下载文件
+     *
+     * @param http     request
+     * @param filePath download file path
+     * @return file
+     */
+    public static File httpExecute(HttpUriRequest http, String filePath) {
+        File downloadFile = new File(filePath);
+
+        try {
+            if(!downloadFile.isDirectory() && !downloadFile.exists()){
+                downloadFile.createNewFile();
+            }
+
+            if (downloadFile.canWrite()){
+                HttpResponse response = httpClient.execute(http);
+                response.getEntity().writeTo(new FileOutputStream(downloadFile));
+            }
+            return downloadFile;
+        } catch (IOException e) {
+            logger.info("filePath is error:" + e.getMessage());
+            return null;
+        }
+
     }
 }

@@ -51,5 +51,10 @@ public enum Event {
     /**
      * .弹出拍照或者相册发图的事件推送(与上一个字段应都属于同一个类管理)
      */
-    PIC_PHOTO_OR_ALBUM
+    PIC_PHOTO_OR_ALBUM,
+
+    /**
+     * 微信反馈模板事件
+     */
+    TEMPLATESENDJOBFINISH
 }

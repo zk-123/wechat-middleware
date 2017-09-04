@@ -20,6 +20,8 @@ public class MenuComponent implements Component {
 
     private static Logger logger = Logger.getLogger(MenuComponent.class);
 
+    public static MenuComponent menuComponent;
+
     /**
      * 创建菜单 URL (POST)
      */
@@ -35,16 +37,18 @@ public class MenuComponent implements Component {
 
     @Override
     public void init() {
-
     }
 
+    private MenuComponent(){
+
+    }
     /**
      * 创建菜单
      *
      * @param menu menu
      * @return is or not success
      */
-    public static boolean createMenu(Menu menu) {
+    public boolean createMenu(Menu menu) {
         String data = JSON.toJSONString(menu).toLowerCase();//notice should be lowerCase otherwise will return ' not utf-8' error
         String ret = HttpUtil.doPost(MenuComponent.CREATE, data);
         if (JsonUtil.isError(ret)) {
@@ -59,9 +63,10 @@ public class MenuComponent implements Component {
      *
      * @return menuBean
      */
-    public static Menu getMenu() {
+    public Menu getMenu() {
         String ret = HttpUtil.doGet(GET);
         if (JsonUtil.isError(ret)) {
+            logger.info("get menu fail");
             return null;
         }
 
@@ -72,7 +77,7 @@ public class MenuComponent implements Component {
     /**
      * 删除菜单
      */
-    public static boolean deleteMenu() {
+    public boolean deleteMenu() {
         String ret = HttpUtil.doGet(DELETE);
         if (JsonUtil.isError(ret)) {
             return false;
@@ -81,4 +86,14 @@ public class MenuComponent implements Component {
         return true;
     }
 
+    /**
+     * 获取MenuComponent instance
+     * @return menuComponentBean
+     */
+    public static MenuComponent getInstance(){
+        if(null == menuComponent){
+            menuComponent = new MenuComponent();
+        }
+        return menuComponent;
+    }
 }

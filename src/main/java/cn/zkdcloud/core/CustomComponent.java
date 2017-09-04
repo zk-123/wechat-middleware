@@ -37,7 +37,6 @@ public class CustomComponent implements Component {
 
     @Override
     public void init() {
-
     }
 
     /**
@@ -45,7 +44,7 @@ public class CustomComponent implements Component {
      *
      * @param kf_account 完整客服账号，格式为：账号前缀@公众号微信号
      * @param nickname   客服昵称
-     * @param password password
+     * @param password   password
      */
     public void add(String kf_account, String nickname, String password) {
         JSONObject custom = new JSONObject();
@@ -61,9 +60,9 @@ public class CustomComponent implements Component {
     }
 
     /**
-     * 返回客服实体
+     * getInstance
      *
-     * @return customBean
+     * @return customComponentBean
      */
     public static CustomComponent getInstance() {
         if (null == customComponent) {

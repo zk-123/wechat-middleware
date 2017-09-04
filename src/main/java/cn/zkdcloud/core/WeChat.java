@@ -2,6 +2,7 @@ package cn.zkdcloud.core;
 
 import org.apache.log4j.Logger;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class WeChat {
 
     private static WeChat weChat;
 
-    private static List<Component> components;
+    private static List<Component> components = new ArrayList<>();
 
     private WeChat() {
 
@@ -26,7 +27,7 @@ public class WeChat {
      */
     public void start() {
         try {
-            for (Component component : getComponents()) {
+            for (Component component : components) {
                 component.init();
             }
             logger.info("init weChat success");
@@ -40,7 +41,11 @@ public class WeChat {
      * 默认启动weChat组件
      */
     public void startDefault(){
-        addComponent(MessageComponent.class).addComponent(MenuComponent.class);
+        addComponent(MessageComponent.class);//消息组件
+        addComponent(MenuComponent.class);//菜单组件
+        addComponent(TemplateComponent.class);//模板消息组件
+        addComponent(Oauth2AuthorizeComponent.class);//网页授权组件
+
         start();
     }
 
@@ -51,34 +56,21 @@ public class WeChat {
      */
     public WeChat addComponent(Class<? extends Component> componentClass) {
         try {
-            getComponents().add(componentClass.newInstance());
+            Method getInstance = componentClass.getDeclaredMethod("getInstance");
+            components.add((Component) getInstance.invoke(null));
             logger.info("add component : " + componentClass);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        }catch (Exception e){
+            logger.info("add" + componentClass + "fail");
         }
         return this;
     }
 
     /**
-     * 获取组件
-     *
-     * @return components
-     */
-    public List<Component> getComponents() {
-        if (components == null) {
-            components = new ArrayList<>();
-        }
-        return components;
-    }
-
-    /**
-     * 获取weChat实例
+     * getInstance
      *
      * @return weChat
      */
-    public static WeChat  create() {
+    public static WeChat getInstance() {
         if (null == weChat) {
             weChat = new WeChat();
         }
