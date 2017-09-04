@@ -1,5 +1,6 @@
 package cn.zkdcloud.core;
 
+import cn.zkdcloud.exception.WeChatException;
 import cn.zkdcloud.util.AccessToken;
 import cn.zkdcloud.util.HttpUtil;
 import cn.zkdcloud.util.JsonUtil;
@@ -83,11 +84,10 @@ public class UserTagComponent implements Component {
      * }
      * }
      */
-    public String createTag(String tagName) {
+    public String createTag(String tagName) throws WeChatException {
         String ret = HttpUtil.doPost(CREATE_TAG_URL, "{\"tag\" : {\"name\" : \"" + tagName + "\"}}");
         if (JsonUtil.isError(ret)) {
-            logger.info("create tag fail:" + ret);
-            return null;
+            throw new WeChatException("create tag fail:" + ret);
         }
         return ret;
     }

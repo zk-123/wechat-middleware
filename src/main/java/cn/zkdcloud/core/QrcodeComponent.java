@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-/**
+/** 二维码组件
  * @author zk
  * @version 2017/9/4
  */
