@@ -10,7 +10,7 @@
 <dependency>
     <groupId>cn.zkdcloud</groupId>
     <artifactId>weChat</artifactId>
-    <version>0.4-RELEASE</version>
+    <version>0.5-RELEASE</version>
 </dependency>
 ````
 # 被动接受消息/回复消息（MessageComponent）
