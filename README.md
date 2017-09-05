@@ -74,7 +74,7 @@ public class TestProcess{
 + 加` @MessageProcess`声明，标识该类为一个微信处理器
 + 该类下的所有方法都是消息处理方法，参数必须只有一个标识期望接受一个什么类型的消息（请仔细阅读上面的消息bean）,如果多重复的消息参数，只有第一个声明的方法有效
 + 处理方法返回需要返回的消息类型，方法体重只处理消息内容，其他细节，比如：创建时间，发送人，发送方等等均不需要处理.....
-> [代码示例](https://github.com/zk-123/weChatDemo/tree/master/message)
+
 ## 自定义菜单（MenuComponent）
 
 ### 创建/修改
@@ -106,7 +106,6 @@ menuComponent.deleteMenu();
 + 2.创建一个新类继承`cn.zkdcloud.core.WeChatListener`并重写其`contextInitialized`方法（该方法中，支持添加自定义组件），添加该组件。
 + 3.好像有点麻烦了。
 
-> [代码示例](https://github.com/zk-123/weChatDemo/tree/master/menu)
 
 ## 模板消息（TemplateComponent）
 模板消息初始化时，会查询所有的模板消息，并缓存到本地。
@@ -139,7 +138,6 @@ templateComponent.sendTemplateMessage(templateMessage);
 TemplateComponent.deleteTemplateMessageByName("话费提醒2");
 TemplateComponent.deleteTemplateMessageById("template id");
 ````
-> [代码示例](https://github.com/zk-123/weChatDemo/tree/master/template)
 
 ## 网页授权管理（Oauth2AuthorizeComponent）
 ### 初始化或在init中重置初始化这些
@@ -615,7 +613,10 @@ public String getUserInfo(String code)
      */
     public String createStrQr(String scene_str, QrType type)
 ````
+## 示例
+[这里Demo示例](https://github.com/zk-123/wechatDemo)
 
+> Some ideas come from [latke](https://github.com/b3log/latke) technical support
 ## 最后
 > 当你在穿山越岭的另一边，我在孤独的路上没有尽头。
 
